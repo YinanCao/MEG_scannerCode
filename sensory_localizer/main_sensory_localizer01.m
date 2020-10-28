@@ -5,7 +5,7 @@ smallWindow4Debug  = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'pilotXX';
+SubName = 'Kos';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'b','z'};
@@ -24,7 +24,7 @@ Age = 24;
 Gender = 'F';
 Hand = 'R';
 session_No = 1;
-test_str = 'SensoryLocal';
+test_str = 'SL';
 stim_str = 'Gabor';
 
 addpath(genpath('/Applications/Psychtoolbox'));
@@ -142,7 +142,7 @@ for session = 1:2
     % ET calibration:
     if info.ET
         disp('ET calibrating')
-        [el, info] = ELconfig(window, [SubName,'_s',num2str(session)], info, screenNumber);
+        [el, info] = ELconfig(window, [SubName,'_SL',num2str(session)], info, screenNumber);
         % Calibrate the eye tracker
         EyelinkDoTrackerSetup(el);
     end
@@ -181,15 +181,18 @@ for session = 1:2
         trigger(trigger_enc.EL_start);
     end
 
-    trigger(trigger_enc.block_start);  % trigger to mark start of the block
-    if  info.ET
-        Eyelink('message', 'blockstart');
-    end
 
     
     Task_message; % stay still
     pause(6);
     Screen('Flip', window);
+    
+    
+    
+    trigger(trigger_enc.block_start);  % trigger to mark start of the block
+    if  info.ET
+        Eyelink('message', 'blockstart');
+    end
     
     % save data prep:
     c = clock;
@@ -264,6 +267,7 @@ for block = 1:length(loc_all)
             
         save_respMatrix{block} = save_d;
         
+        trigger(trigger_enc.trial_end)
         if info.ET
             Eyelink('message', num2str(trigger_enc.trial_end));
         end
