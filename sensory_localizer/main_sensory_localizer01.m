@@ -3,7 +3,7 @@ debug = 1;
 datadir = '/Users/yinancaojake/Documents/';
 Screen('Preference', 'SkipSyncTests', 2);
 SubNo = 1;
-SubName = 'pilot01';
+SubName = 'pilot02';
 EL_flag = 0;
 trigger_flag = 0;
 keyLR = {'b','z'};
