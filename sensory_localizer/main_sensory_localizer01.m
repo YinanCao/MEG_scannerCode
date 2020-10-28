@@ -1,7 +1,7 @@
 clear; clc; close all;
 debug = 1;
 datadir = '/Users/yinancaojake/Documents/';
-Screen('Preference', 'SkipSyncTests', 2);
+Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'pilot02';
 EL_flag = 0;
