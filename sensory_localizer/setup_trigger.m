@@ -28,7 +28,7 @@ trig.fb_cue_off = 116;    % end of feedback cue
 
 trig.resp_left  = 22;     % left bar was selected
 trig.resp_right = 33;     % right bar was selected
-trig.resp_middle= 44;     % middle bar was selected
+% trig.resp_middle= 44;     % middle bar was selected
 trig.resp_missed= 55;      % missed response
 
 end

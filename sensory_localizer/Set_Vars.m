@@ -18,6 +18,11 @@ info.mon_width_cm  = 45;% width of monitor (cm)
 info.mon_height_cm = 26.5;% height of monitor (cm)
 info.view_dist_cm  = 50;% viewing distance (cm)
 info.pix_per_deg   = info.window_rect(3) *(1 ./ (2 * atan2(info.mon_width_cm / 2, info.view_dist_cm))) * pi/180;
+
+info.width = info.mon_width_cm;
+info.height = info.mon_height_cm;
+info.dist = info.view_dist_cm;
+
 rng('shuffle');
 trigger_enc = setup_trigger;
  

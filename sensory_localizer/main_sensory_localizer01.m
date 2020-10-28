@@ -1,10 +1,12 @@
 clear; clc; close all;
-debug = 1;
-datadir = '/Users/yinancaojake/Documents/';
+debug = 0;
+smallWindow4Debug  = [0, 0, 1920, 1080];
+%smallWindow4Debug  = [1921, 0, 1920*2, 1080];
+datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'pilotXX';
-EL_flag = 0;
+EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'b','z'};
 
@@ -65,7 +67,7 @@ right    = KbName(keyLR{2});
 % HideCursor;
 Screen('Preference', 'TextRenderer', 1); % smooth text
 
-smallWindow4Debug  = [1920, 0, 1920*2, 1080];
+
 if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
@@ -96,10 +98,7 @@ Setup_keys;
 %---------------
 DrawFormattedText(window, 'Ready? Press [SPACE] to start!', 'center', center_y+175,white);
 Screen('Flip', window);
-trigger(trigger_enc.block_start);  % trigger to mark start of the block
-if  info.ET
-    Eyelink('message', 'blockstart');
-end
+
 
 TTL = 0; % Get the TTL from the scanner
 while TTL==0
@@ -125,6 +124,7 @@ for session = 1:2
     DrawFormattedText(window, 'We will calibrate your eye positions',...
     'center', center_y-100, white);
     Screen('Flip', window);
+    disp('press space bar to calibrate ET')
 
     TTL = 0; % Get the TTL from the scanner
     while TTL==0
@@ -142,8 +142,7 @@ for session = 1:2
     % ET calibration:
     if info.ET
         disp('ET calibrating')
-        [el, info] = ELconfig(window, ['sub_',SubName,'_sess',...
-            num2str(session)], info, screenNumber);
+        [el, info] = ELconfig(window, [SubName,'_s',num2str(session)], info, screenNumber);
         % Calibrate the eye tracker
         EyelinkDoTrackerSetup(el);
     end
@@ -181,6 +180,12 @@ for session = 1:2
         Eyelink('message', 'Start recording Eyelink');
         trigger(trigger_enc.EL_start);
     end
+
+    trigger(trigger_enc.block_start);  % trigger to mark start of the block
+    if  info.ET
+        Eyelink('message', 'blockstart');
+    end
+
     
     Task_message; % stay still
     pause(6);
