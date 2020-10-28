@@ -3,9 +3,9 @@ debug = 1;
 datadir = '/Users/yinancaojake/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'pilot02';
+SubName = 'pilotXX';
 EL_flag = 0;
-trigger_flag = 0;
+trigger_flag = 1;
 keyLR = {'b','z'};
 
 block_rep = 1;
