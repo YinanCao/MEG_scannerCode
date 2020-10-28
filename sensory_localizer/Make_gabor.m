@@ -1,4 +1,4 @@
-
+% fun
 % gabor parameters:
 period = Gabor.period; % in pixels
 f = 1/period; % spatial frequency
