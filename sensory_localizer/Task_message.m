@@ -10,7 +10,7 @@
 % DrawFormattedText(window, ['Plus with a Green dot: Correct Response'], 'center', center_y+75,[0 1 0]);
 % DrawFormattedText(window, ['Plus with a Red dot: Wrong Response'], 'center', center_y+125,[1 0 0]);
 
-
+% let's do
 DrawFormattedText(window, 'Experiment will begin, please do not move','center', center_y-100, white);
 
 DrawFormattedText(window, 'key 1: CCW',  center_x-190, center_y-50, green);
