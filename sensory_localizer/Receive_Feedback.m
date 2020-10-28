@@ -1,4 +1,5 @@
 % check the answer
+% try to update code
 if press_key(left)
     Trial.answer(trial)='L';
     trigger(trigger_enc.resp_left);  % trigger to mark the response
