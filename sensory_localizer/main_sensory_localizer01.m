@@ -1,13 +1,13 @@
 clear; clc; close all;
-debug = 0;
+debug = 1;
 smallWindow4Debug  = [0, 0, 1920, 1080];
 %smallWindow4Debug  = [1921, 0, 1920*2, 1080];
 datadir = '/home/usera/Documents/';
-Screen('Preference', 'SkipSyncTests', 0);
+Screen('Preference', 'SkipSyncTests', 2);
 SubNo = 1;
 SubName = 'Kos';
-EL_flag = 1;
-trigger_flag = 1;
+EL_flag = 0;
+trigger_flag = 0;
 keyLR = {'b','z'};
 
 block_rep = 1;
@@ -98,8 +98,6 @@ Setup_keys;
 %---------------
 DrawFormattedText(window, 'Ready? Press [SPACE] to start!', 'center', center_y+175,white);
 Screen('Flip', window);
-
-
 TTL = 0; % Get the TTL from the scanner
 while TTL==0
     [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
@@ -187,8 +185,7 @@ for session = 1:2
     pause(6);
     Screen('Flip', window);
     
-    
-    
+
     trigger(trigger_enc.block_start);  % trigger to mark start of the block
     if  info.ET
         Eyelink('message', 'blockstart');

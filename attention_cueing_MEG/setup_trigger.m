@@ -16,19 +16,22 @@ trig.cue_off = 16;
 trig.stim_on  = 111;      % start of stim
 trig.stim_off = 119;      % end of stim
 
+trig.prob_on  = 163;      % start of stim
+trig.prob_off = 171;      % end of stim
+
 trig.resp_cue_on  = 112;  % start of response cue
 trig.resp_cue_off = 118;  % end of response cue
 
 trig.resp_correct = 51;   % 'correct' response
-trig.resp_wrong   = 50;   % 'wrong' response
-trig.resp_missed  = 52;   % 'missed' response
+trig.resp_wrong   = 61;   % 'wrong' response
+trig.resp_missed  = 71;   % 'missed' response
 
 trig.fb_cue_on  = 114;    % start of feedback cue
 trig.fb_cue_off = 116;    % end of feedback cue
 
 trig.resp_left  = 22;     % left bar was selected
 trig.resp_right = 33;     % right bar was selected
-trig.resp_middle= 44;     % middle bar was selected
-trig.resp_missed= 55;      % missed response
+% trig.resp_middle = 44;     % middle bar was selected
+trig.resp_invalid = 44;      % missed response
 
 end

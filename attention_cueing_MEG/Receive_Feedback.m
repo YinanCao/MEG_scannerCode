@@ -19,22 +19,22 @@ elseif press_key(right)
     end
 else
     Trial.answer(trial)='I';
-    trigger(trigger_enc.resp_missed);  % trigger to mark the response
+    trigger(trigger_enc.resp_invalid);  % trigger to mark the response
     if info.ET
-        Eyelink('message', num2str(trigger_enc.resp_missed));
+        Eyelink('message', num2str(trigger_enc.resp_invalid));
     end
 end
 % evaluate the answer
 if  Trial.answer(trial) =='I'
-    Trial.eval_answer(trial)=99;
+    Trial.eval_answer(trial)=2;
     DrawFormattedText(window, ['Missed Response'], 'center', 'center',white);
     [start_FB]=Screen('Flip', window);
-    trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
-    trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
+%     trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
+%     trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
     trigger(trigger_enc.resp_missed);  % trigger to mark missed response
     if info.ET
-        Eyelink('message', num2str(trigger_enc.resp_cue_off));
-        Eyelink('message', num2str(trigger_enc.fb_cue_on));
+%         Eyelink('message', num2str(trigger_enc.resp_cue_off));
+%         Eyelink('message', num2str(trigger_enc.fb_cue_on));
         Eyelink('message', num2str(trigger_enc.resp_missed));
     end
     WaitSecs(Trial.FBD); % Feedback presentation/ Missed or Ignored
@@ -44,12 +44,12 @@ else
         Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[45,135]);
         Screen('FillOval', window, green, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
         [start_FB]=Screen('Flip', window);
-        trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
-        trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
+%         trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
+%         trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
         trigger(trigger_enc.resp_correct);  % trigger to mark correct response
         if info.ET
-            Eyelink('message', num2str(trigger_enc.resp_cue_off));
-            Eyelink('message', num2str(trigger_enc.fb_cue_on));
+%             Eyelink('message', num2str(trigger_enc.resp_cue_off));
+%             Eyelink('message', num2str(trigger_enc.fb_cue_on));
             Eyelink('message', num2str(trigger_enc.resp_correct));
         end
         WaitSecs(Trial.FBD); % Feedback presentation/ Correct
@@ -58,12 +58,12 @@ else
         Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[45,135]);
         Screen('FillOval', window, red, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
         [start_FB]=Screen('Flip', window);
-        trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
-        trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
+%         trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
+%         trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
         trigger(trigger_enc.resp_wrong);  % trigger to mark wrong response
         if info.ET
-            Eyelink('message', num2str(trigger_enc.resp_cue_off));
-            Eyelink('message', num2str(trigger_enc.fb_cue_on));
+%             Eyelink('message', num2str(trigger_enc.resp_cue_off));
+%             Eyelink('message', num2str(trigger_enc.fb_cue_on));
             Eyelink('message', num2str(trigger_enc.resp_wrong));
         end
         WaitSecs(Trial.FBD); % Feedback presentation/ Wrong
