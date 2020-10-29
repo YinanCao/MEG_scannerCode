@@ -15,13 +15,13 @@ SubNo = 1;
 SubName = 'Kos';
 EL_flag = 1;
 trigger_flag = 1;
-keyLR = {'b','z'};
+keyLR = {'z','g'};
 dopractice = 0;
 
 all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
 
 pow = 0.5;
-jnd = 0.07;
+jnd = 0.1;
 s_jnd = (0.5+jnd)^pow-0.5.^pow;
 all_contrast = [0.2,0.5,0.8];
 c = all_contrast;

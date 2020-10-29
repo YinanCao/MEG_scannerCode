@@ -20,6 +20,12 @@ info.view_dist_cm  = 50;% viewing distance (cm)
 info.pix_per_deg   = info.window_rect(3) *(1 ./ (2 * atan2(info.mon_width_cm / 2, info.view_dist_cm))) * pi/180;
 rng('shuffle');
 trigger_enc = setup_trigger;
+
+
+info.width = info.mon_width_cm;
+info.height = info.mon_height_cm;
+info.dist = info.view_dist_cm;
+
  
 if info.do_trigger
     addpath matlabtrigger/
@@ -84,7 +90,7 @@ Trial.rot_deg               = 5;
 
 Trial.cueNumColor          = white;
 
-Trial.cueNumberD           = 0.3;
+Trial.cueNumberD           = 0.4;
 %    Make a truncated distributaion for inter_trial delay
 pd                         = makedist('Exponential','mu',0.75);
 t                          = truncate(pd,0.6,1.5);
@@ -97,7 +103,7 @@ Trial.ProbD                = 0.5;
 Trial.StRCD                = 0.5; % probe offset to response onset
 Trial.RCD                  = 1.5; % Response cue duration
 Trial.FBD                  = 0.25;% FeedBack duration
-Trial.TimeWaitafterFB      = 0.3;
+Trial.TimeWaitafterFB      = 0.6;
 
 if Trial.Triangle_dir == 'U'
     x                  = [-Gabor.X_Shift_pix,0,Gabor.X_Shift_pix];

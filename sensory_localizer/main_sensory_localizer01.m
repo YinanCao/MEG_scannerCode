@@ -8,7 +8,7 @@ SubNo = 1;
 SubName = 'Kos';
 EL_flag = 1;
 trigger_flag = 1;
-keyLR = {'b','z'};
+keyLR = {'g','z'};
 
 block_rep = 1;
 loc_all = repmat(1:3,1,block_rep);

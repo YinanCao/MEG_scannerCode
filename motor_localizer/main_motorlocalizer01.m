@@ -5,6 +5,8 @@ datadir = '/home/usera/Documents/';
 addpath(genpath('/Applications/Psychtoolbox'));
 sca;
 
+info.SubNo = 1;
+
 log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
@@ -17,7 +19,7 @@ Screen('Preference', 'SkipSyncTests', 0);
 nTrials = 10;
 blockRep = 2;
 
-EL_flag = 1;
+EL_flag = 0;
 trigger_flag = 1;
 SubName = 'Kos';
 
@@ -25,7 +27,7 @@ SubName = 'Kos';
 KbName('UnifyKeyNames');
 L_Hand     = KbName('z'); % 2
 R_Hand     = KbName('g'); % 3
-L_Foot     = KbName('1!'); 
+L_Foot     = KbName('1!');
 R_Foot     = KbName('2@');
 
 if debug
