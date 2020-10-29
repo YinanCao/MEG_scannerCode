@@ -3,7 +3,6 @@ function trig = setup_trigger()
 trig.EL_start = 1;
 
 trig.circle_on = 4;
-% trig.resp = 2;
 
 for k = 1:Ntype
     trig.motor_blockType(k) = k + 200;

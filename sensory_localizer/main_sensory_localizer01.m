@@ -1,13 +1,13 @@
 clear; clc; close all;
-debug = 1;
+debug = 0;
 smallWindow4Debug  = [0, 0, 1920, 1080];
 %smallWindow4Debug  = [1921, 0, 1920*2, 1080];
 datadir = '/home/usera/Documents/';
-Screen('Preference', 'SkipSyncTests', 2);
+Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'Kos';
-EL_flag = 0;
-trigger_flag = 0;
+EL_flag = 1;
+trigger_flag = 1;
 keyLR = {'b','z'};
 
 block_rep = 1;
@@ -64,7 +64,9 @@ right    = KbName(keyLR{2});
 % right foot: '2@'
 
 % Open the Window
-% HideCursor;
+if ~debug
+    HideCursor;
+end
 Screen('Preference', 'TextRenderer', 1); % smooth text
 
 
@@ -114,8 +116,7 @@ Screen('Flip', window);
 
 % main experiment
 
-
-for session = 1:2
+for session = 1:3
     
     tic;
     % eye tracking prep:
@@ -179,8 +180,6 @@ for session = 1:2
         trigger(trigger_enc.EL_start);
     end
 
-
-    
     Task_message; % stay still
     pause(6);
     Screen('Flip', window);

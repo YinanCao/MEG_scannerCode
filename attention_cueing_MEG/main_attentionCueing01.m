@@ -1,23 +1,24 @@
 clear; clc; close all;
 
-debug = 1;
+debug = 0;
 cue2StimGap = 0.3;
 
-cd /Users/yinancaojake/Documents/Postdoc/UKE/MEG_scannerCode/attention_cueing_MEG
+cd /home/usera/Documents/MEG_scannerCode/attention_cueing_MEG/
 
-% datadir = '/home/usera/Documents/';s
-datadir = '/Users/yinancaojake/Documents/';
+datadir = '/home/usera/Documents/';
 log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
 end
-Screen('Preference', 'SkipSyncTests', 2);
+Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'Kos';
-EL_flag = 0;
-trigger_flag = 0;
+EL_flag = 1;
+trigger_flag = 1;
 keyLR = {'b','z'};
 dopractice = 0;
+
+all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
 
 pow = 0.5;
 jnd = 0.07;
@@ -101,7 +102,7 @@ Screen('Preference', 'TextRenderer', 1); % smooth text
     [], [],  kPsychNeed32BPCFloat);
 [center_x, center_y] = RectCenter(windowRect);
 Screen('TextFont', window, 'Helvetica'); % define text font
-Screen('TextSize', window, 30); % define text font
+Screen('TextSize', window, 22); % define text font
 info.window_rect  = windowRect;
 info.frameDur     = Screen('GetFlipInterval', window); %duration of one frame
 info.frameRate    = Screen('NominalFrameRate', window);
@@ -254,10 +255,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
 % main experiment
-
 for session = 1
     
     doMask = 0;
@@ -271,207 +269,200 @@ for session = 1
         mask_str = 'nomask';
     end
 
-for block = 1:3
-    disp(['starting Session ',num2str(session),' Block ',num2str(block)])
     
-    % eye tracking prep:
-    DrawFormattedText(window, 'We will calibrate your eye positions',...
-    'center', center_y-100, white);
-    Screen('Flip', window);
-    disp('press space bar to calibrate ET')
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> % 
+    for block = 1:3
 
-    TTL = 0; % Get the TTL from the scanner
-    while TTL==0
-        [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
-        if strcmp(KbName(keyCode),'space')
-            TTL = 1;    % Start the experiment
-            debrun = GetSecs; %%% Scanning starts!!!!
-            disp('OK, let''s start!!')
-        else
-            TTL = 0;
+        disp(['starting Session ',num2str(session),' Block ',num2str(block)])
+
+        % eye tracking prep:
+        DrawFormattedText(window, 'We will calibrate your eye positions',...
+                        'center', center_y-100, white);
+        Screen('Flip', window);
+        disp('press space bar to calibrate ET')
+
+        TTL = 0; % Get the TTL from the scanner
+        while TTL==0
+            [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
+            if strcmp(KbName(keyCode),'space')
+                TTL = 1;    % Start the experiment
+                debrun = GetSecs; %%% Scanning starts!!!!
+                disp('OK, let''s start!!')
+            else
+                TTL = 0;
+            end
         end
-    end
-    pause(.5)
-    Screen('Flip', window);
-    
-    % ET calibration:
-    if info.ET
-        disp('ET calibrating')
-        [el, info] = ELconfig(window,...
-            [SubName,'_AC',num2str(session),num2str(block)], info, screenNumber);
-        % Calibrate the eye tracker
-        EyelinkDoTrackerSetup(el);
-    end
-    disp('ET calibration done! >>>>>>>>>>')
+        pause(.5)
+        Screen('Flip', window);
 
-    % >>>>>>>>>>>>>>>>>>>>>>>>>
-    % >>>>>>>>>>>>>>>>>>>>>>>>>
-    % >>>>>>>>>>>>>>>>>>>>>>>>>
-    DrawFormattedText(window, 'Please stay very still! We are measuring head position',...
-        'center', center_y-100, white);
-    Screen('Flip', window);
-    TTL = 0; % Get the TTL from the scanner
-    while TTL==0
-        [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
-        if strcmp(KbName(keyCode),'space')
-            TTL = 1;    % Start the experiment
-            debrun = GetSecs; %%% Scanning starts!!!!
-            disp('OK, let''s start!!')
-        else
-            TTL = 0;
-        end
-    end
-    pause(1);
-    Screen('Flip', window);
-    % >>>>>>>>>>>>>>>>>>>>>>>>>
-    % >>>>>>>>>>>>>>>>>>>>>>>>>
-    % >>>>>>>>>>>>>>>>>>>>>>>>>
-    
-    
-    
-    Task_message;
-    TTL = 0; % Get the TTL from the scanner
-    while TTL==0
-        [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
-        if strcmp(KbName(keyCode),keyLR{1}) || strcmp(KbName(keyCode),keyLR{2})
-            TTL = 1;    % Start the experiment
-            debrun = GetSecs; %%% Scanning starts!!!!
-            disp('OK, let''s start!!')
-        else
-            TTL = 0;
-        end
-    end
-    pause(1);
-    Screen('Flip', window);
-    
-
-    c = clock;
-
-    sname = sprintf('%s/%s_%s_%s_%s_%s_block_%d_%02d%02d-%02d%02d.mat',...
-       log_dir,SubName,session_type,Block_type,map_str,mask_str,block,c(3),c(2),c(4),c(5));
-
-    % define the trial parameters in this block:
-    change = repmat([-1,1],1,nTrials/2);
-    change = change(randperm(nTrials));
-    answer = mapping((change>0)+1);
-    
-    % reset
-    Trial.cue_position = [];
-    Trial.orientation  = [];
-    Trial.contrast     = [];
-    Trial.probe_pos    = [];
-    Trial.true_answer  = [];
-    Trial.probe_contrast =[];
-    Trial.RT = [];
-    Trial.Timing = [];
-    Trial.answer = [];
-    Trial.eval_answer = [];
-    
-
-    
-    % Start Eyelink recording
-    if info.ET
-        disp('ET recording >>>>>>>>>')
-        Eyelink('StartRecording');
-        WaitSecs(0.1);
-        Eyelink('message', 'Start recording Eyelink');
-        trigger(trigger_enc.EL_start);
-    end
-    
-    %%% waiting for the first trial and not start the task immediately
-    Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
-    Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-    Screen('Flip', window);
-    WaitSecs(1);
-    
-    Set_designX;
-    for trial = 1:nTrials % nTrials was defined in Set_Vars.m
-        
-        % cue position:
-        Trial.cue_position(trial,:) = design_x(:,trial,1,block); % e.g., [1,1,0]
-
-        % stimulus angle: % 3
-        this_o = design_x(:,trial,2,block);
-        Trial.orientation(trial,:) = Trial.Gabor_orientation(this_o);
-
-        % stimulus contrast
-        Trial.contrast(trial,:) = Gabor.tr_contrast(design_x(:,trial,3,block));
-        
-        probe_pos = design_x(:,trial,4,block);
-        Trial.probe_pos(trial,:) = probe_pos;
-        % stim contrast at probe location:
-       
-        Trial.true_answer(trial) = answer(trial);
-        
-        idx = (change>0)+1;
-        Trial.probe_contrast(trial,:) = Trial.contrast(trial,probe_pos==1) + jnd_pow(probe_pos==1, idx(trial));
-        
-    end
-    
-
-    correctness = {'error','correct','missed'};
-    for trial = 1:nTrials
-        disp(['>>> Trial: ',num2str(trial),' of ', num2str(nTrials)])
-        Trial_run;
-        Receive_Feedback;
-        disp(['user responded: ',Trial.answer(trial),' ',correctness{Trial.eval_answer(trial)+1}])
-        
-
-%         trigger(trigger_enc.fb_cue_off);  % trigger to mark end of the feedback cue
-%         trigger(trigger_enc.trial_end);   % trigger to mark end of the trial
+        % ET calibration:
         if info.ET
-%             Eyelink('message', num2str(trigger_enc.fb_cue_off));
-            Eyelink('message', num2str(trigger_enc.trial_end));
+            disp('ET calibrating')
+            [el, info] = ELconfig(window,...
+                [SubName,'_AC',num2str(session),num2str(block)], info, screenNumber);
+            % Calibrate the eye tracker
+            EyelinkDoTrackerSetup(el);
         end
-        
-        save(sname,'Trial','Gabor','trigger_enc','info');
+        disp('ET calibration done! >>>>>>>>>>')
 
-    end % end of the trials
-    disp('>>> block ended')
-    trigger(trigger_enc.block_end);  % trigger to mark end of the block
-    if  info.ET
-        Eyelink('message', num2str(trigger_enc.block_end));
-    end
-    
-    
-    % Save Eyelink data
-    if info.ET
-        disp('>>> attempting to save ET data >>>')
-        time_str = strrep(mat2str(fix(clock)),' ','_');
-        eyefilename = fullfile([log_dir,'/',time_str,'_',info.edfFile]);
-        Eyelink('CloseFile');
-        Eyelink('WaitForModeReady', 500);
-        try
-            status = Eyelink('ReceiveFile', info.edfFile, eyefilename);
-            disp(['File ' eyefilename ' saved to disk']);
-        catch
-            warning(['File ' eyefilename ' not saved to disk']);
+        % >>>>>>>>>>>>>>>>>>>>>>>>>
+        % >>>>>>>>>>>>>>>>>>>>>>>>>
+        % >>>>>>>>>>>>>>>>>>>>>>>>>
+        DrawFormattedText(window, 'Please stay very still! We are measuring head position',...
+            'center', center_y-100, white);
+        Screen('Flip', window);
+        TTL = 0; % Get the TTL from the scanner
+        while TTL==0
+            [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
+            if strcmp(KbName(keyCode),'space')
+                TTL = 1;    % Start the experiment
+                debrun = GetSecs; %%% Scanning starts!!!!
+                disp('OK, let''s start!!')
+            else
+                TTL = 0;
+            end
         end
-        Eyelink('StopRecording');
-    end
+        pause(1);
+        Screen('Flip', window);
+        % >>>>>>>>>>>>>>>>>>>>>>>>>
+        % >>>>>>>>>>>>>>>>>>>>>>>>>
+        % >>>>>>>>>>>>>>>>>>>>>>>>>
 
-    Trial.Acc_withoutMissed   = sum(Trial.eval_answer==1)./(sum(Trial.eval_answer==1)+sum(Trial.eval_answer==0));
-    Trial.Acc_withMissed      = sum(Trial.eval_answer==1)./nTrials;
-    Trial.NoMissed            = sum(Trial.eval_answer==99);
-    
-    final_message = sprintf('Thanks! Please rest... \n \n Your accuracy score was: %0.2f',Trial.Acc_withMissed*100);
-    DrawFormattedText(window, final_message, 'center', 'center', WhiteIndex(window));
-    DrawFormattedText(window, 'Press [SPACE] to start!', 'center', center_y+175,white);
-    Screen('Flip', window);
-    TTL = 0; % Get the TTL from the scanner
-    while TTL==0
-        [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
-        if strcmp(KbName(keyCode),'space')==1  % TTL
-            TTL = 1;    % Start the experiment
-            debrun = GetSecs; %%% Scanning starts!!!!
-            disp('OK, let''s start!!')
-        else
-            TTL = 0;
+        Task_message;
+        TTL = 0; % Get the TTL from the scanner
+        while TTL==0
+            [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
+            if strcmp(KbName(keyCode),keyLR{1}) || strcmp(KbName(keyCode),keyLR{2})...
+                || strcmp(KbName(keyCode),'space')
+                TTL = 1;    % Start the experiment
+                debrun = GetSecs; %%% Scanning starts!!!!
+                disp('OK, let''s start!!')
+            else
+                TTL = 0;
+            end
         end
-    end
-    Screen('Flip', window);
+        pause(1);
+        Screen('Flip', window);
 
-end
+        c = clock;
+        sname = sprintf('%s/%s_%s_%s_%s_%s_block_%d_%02d%02d-%02d%02d.mat',...
+           log_dir,SubName,session_type,Block_type,map_str,mask_str,block,c(3),c(2),c(4),c(5));
+
+        % define the trial parameters in this block:
+        change = repmat([-1,1],1,nTrials/2);
+        change = change(randperm(nTrials));
+        answer = mapping((change>0)+1);
+
+        % reset
+        Trial.cue_position = [];
+        Trial.orientation  = [];
+        Trial.contrast     = [];
+        Trial.probe_pos    = [];
+        Trial.true_answer  = [];
+        Trial.probe_contrast =[];
+        Trial.RT = [];
+        Trial.Timing = [];
+        Trial.answer = [];
+        Trial.eval_answer = [];
+
+        % Start Eyelink recording
+        if info.ET
+            disp('ET recording >>>>>>>>>')
+            Eyelink('StartRecording');
+            WaitSecs(0.1);
+            Eyelink('message', 'Start recording Eyelink');
+            trigger(trigger_enc.EL_start);
+        end
+
+        %%% waiting for the first trial and not start the task immediately
+        Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
+        Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+        Screen('Flip', window);
+        WaitSecs(1);
+
+        Set_designX;
+        for trial = 1:nTrials % nTrials was defined in Set_Vars.m
+
+            % cue position:
+            Trial.cue_position(trial,:) = design_x(:,trial,1,block); % e.g., [1,1,0]
+
+            % stimulus angle: % 3
+            this_o = design_x(:,trial,2,block);
+            Trial.orientation(trial,:) = Trial.Gabor_orientation(this_o);
+
+            % stimulus contrast
+            Trial.contrast(trial,:) = Gabor.tr_contrast(design_x(:,trial,3,block));
+
+            probe_pos = design_x(:,trial,4,block);
+            Trial.probe_pos(trial,:) = probe_pos;
+            % stim contrast at probe location:
+
+            Trial.true_answer(trial) = answer(trial);
+
+            idx = (change>0)+1;
+            Trial.probe_contrast(trial,:) = Trial.contrast(trial,probe_pos==1) + jnd_pow(probe_pos==1, idx(trial));
+        end
+
+        correctness = {'error','correct','missed'};
+        for trial = 1:nTrials
+            disp(['>>> Trial: ',num2str(trial),' of ', num2str(nTrials)])
+            Trial_run;
+            Receive_Feedback;
+            disp(['user responded: ',Trial.answer(trial),' ',correctness{Trial.eval_answer(trial)+1}])
+
+            trigger(trigger_enc.trial_end)
+            if info.ET
+                Eyelink('message', num2str(trigger_enc.trial_end));
+            end
+            save(sname,'Trial','Gabor','trigger_enc','info');
+
+        end % end of the trials
+        disp('>>> block ended')
+        trigger(trigger_enc.block_end);  % trigger to mark end of the block
+        if  info.ET
+            Eyelink('message', num2str(trigger_enc.block_end));
+        end
+
+        % Save Eyelink data
+        if info.ET
+            disp('>>> attempting to save ET data >>>')
+            time_str = strrep(mat2str(fix(clock)),' ','_');
+            eyefilename = fullfile([log_dir,'/',time_str,'_',info.edfFile]);
+            Eyelink('CloseFile');
+            Eyelink('WaitForModeReady', 500);
+            try
+                status = Eyelink('ReceiveFile', info.edfFile, eyefilename);
+                disp(['File ' eyefilename ' saved to disk']);
+            catch
+                warning(['File ' eyefilename ' not saved to disk']);
+            end
+            Eyelink('StopRecording');
+        end
+
+        Trial.Acc_withoutMissed   = sum(Trial.eval_answer==1)./(sum(Trial.eval_answer==1)+sum(Trial.eval_answer==0));
+        Trial.Acc_withMissed      = sum(Trial.eval_answer==1)./nTrials;
+        Trial.NoMissed            = sum(Trial.eval_answer==99);
+
+        final_message = sprintf('Thanks! Please rest... \n \n Your accuracy score was: %0.2f',Trial.Acc_withMissed*100);
+        DrawFormattedText(window, final_message, 'center', 'center', WhiteIndex(window));
+        DrawFormattedText(window, 'Press [SPACE] to start!', 'center', center_y+175,white);
+        Screen('Flip', window);
+        TTL = 0; % Get the TTL from the scanner
+        while TTL==0
+            [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
+            if strcmp(KbName(keyCode),'space')==1  % TTL
+                TTL = 1;    % Start the experiment
+                debrun = GetSecs; %%% Scanning starts!!!!
+                disp('OK, let''s start!!')
+            else
+                TTL = 0;
+            end
+        end
+        Screen('Flip', window);
+
+    end
 
 end % end of session
 
