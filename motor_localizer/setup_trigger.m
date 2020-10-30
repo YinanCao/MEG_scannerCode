@@ -4,7 +4,7 @@ trig.EL_start = 1;
 
 trig.circle_on = 4;
 
-for k = 1:Ntype
+for k = 1:10
     trig.motor_blockType(k) = k + 200;
 end
 
