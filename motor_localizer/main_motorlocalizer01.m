@@ -1,6 +1,7 @@
 clear; clc; close all;
 
 debug = 0;
+debugkey = 0;
 datadir = '/home/usera/Documents/';
 addpath(genpath('/Applications/Psychtoolbox'));
 sca;
@@ -16,12 +17,12 @@ cd /home/usera/Documents/MEG_scannerCode/motor_localizer/
 smallWindow4Debug  = [0, 0, 1920, 1080];
 %smallWindow4Debug  = [1921, 0, 1920*2, 1080];
 Screen('Preference', 'SkipSyncTests', 0);
-nTrials = 10;
-blockRep = 2;
+nTrials = 20;
+blockRep = 1;
 
-EL_flag = 0;
+EL_flag = 1;
 trigger_flag = 1;
-SubName = 'Kos';
+SubName = 'MT';
 
 % Define the keys
 KbName('UnifyKeyNames');
@@ -30,7 +31,7 @@ R_Hand     = KbName('g'); % 3
 L_Foot     = KbName('1!');
 R_Foot     = KbName('2@');
 
-if debug
+if debugkey
     L_Hand     = KbName('a'); % 2
     R_Hand     = KbName('s'); % 3
     L_Foot     = KbName('d'); 
@@ -154,6 +155,7 @@ for session = 1:3
     TTL = 0; % Get the TTL from the scanner
     while TTL==0
         [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
+
         if strcmp(KbName(keyCode),'space')
             TTL = 1;    % Start the experiment
             debrun = GetSecs; %%% Scanning starts!!!!
@@ -233,7 +235,7 @@ for session = 1:3
         trigger(trigger_enc.motor_blockType(block_all{block,1}));
         disp(['trigger sent = ',num2str(trigger_enc.motor_blockType(block_all{block,1}))])
         if info.ET
-            Eyelink('message', trigger_enc.motor_blockType(block_all{block,1}));
+            Eyelink('message', num2str(trigger_enc.motor_blockType(block_all{block,1})));
         end
         pause(1)
 
@@ -253,7 +255,7 @@ for session = 1:3
             trigger(trigger_enc.circle_on)
             disp(['trigger sent = ',num2str(trigger_enc.circle_on)])
             if info.ET
-                Eyelink('message', trigger_enc.circle_on);
+                Eyelink('message', num2str(trigger_enc.circle_on));
             end
 
             start = start_fix;

@@ -1,14 +1,14 @@
 clear; clc; close all;
 debug = 0;
-smallWindow4Debug  = [0, 0, 1920, 1080];
+smallWindow4Debug = [0, 0, 1920, 1080];
 %smallWindow4Debug  = [1921, 0, 1920*2, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Kos';
+SubName = 'MT';
 EL_flag = 1;
 trigger_flag = 1;
-keyLR = {'g','z'};
+keyLR = {'z','g'};
 
 block_rep = 1;
 loc_all = repmat(1:3,1,block_rep);
@@ -27,10 +27,10 @@ session_No = 1;
 test_str = 'SL';
 stim_str = 'Gabor';
 
-addpath(genpath('/Applications/Psychtoolbox'));
+%addpath(genpath('/Applications/Psychtoolbox'));
 sca;
 
-log_dir = [datadir 'Log'];
+log_dir = [datadir 'Log_debug'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
 end
@@ -41,6 +41,8 @@ end
 PsychDefaultSetup(2);
 AssertOpenGL;
 screenNumber = max(Screen('Screens'));
+
+res = Screen('Resolution', screenNumber);
 
 % Define the colors
 white     = WhiteIndex(screenNumber);
@@ -64,17 +66,17 @@ right    = KbName(keyLR{2});
 % right foot: '2@'
 
 % Open the Window
-if ~debug
-    HideCursor;
-end
+
 Screen('Preference', 'TextRenderer', 1); % smooth text
 
 
 if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug, 32, 2,...
-    [], [],  kPsychNeed32BPCFloat);
+
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug);
+
+% [window, windowRect] = Screen('OpenWindow', screenNumber, grey, smallWindow4Debug);
 [center_x, center_y] = RectCenter(windowRect);
 Screen('TextFont', window, 'Helvetica'); % define text font
 Screen('TextSize', window, 22); % define text font
@@ -141,8 +143,9 @@ for session = 1:3
     % ET calibration:
     if info.ET
         disp('ET calibrating')
-        [el, info] = ELconfig(window, [SubName,'_SL',num2str(session)], info, screenNumber);
+        [~, info] = ELconfig(window, [SubName,'_SL',num2str(session)], info, screenNumber);
         % Calibrate the eye tracker
+        el = EyelinkInitDefaults_BLG(window);
         EyelinkDoTrackerSetup(el);
     end
     disp('ET calibration done! >>>>>>>>>>')
