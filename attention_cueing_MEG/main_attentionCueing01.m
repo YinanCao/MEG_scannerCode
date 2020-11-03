@@ -18,7 +18,7 @@ trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
 dopractice = 0;
 
-all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
+all_angles = [-67.5 -45 -22.5 22.5  45  67.5]; % Gabor orientations
 
 pow = 0.5;
 jnd = 0.08;
