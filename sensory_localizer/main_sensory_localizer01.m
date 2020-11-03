@@ -5,7 +5,7 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'MT';
+SubName = 'MSi';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'};
@@ -27,10 +27,10 @@ session_No = 1;
 test_str = 'SL';
 stim_str = 'Gabor';
 
-%addpath(genpath('/Applications/Psychtoolbox'));
+% addpath(genpath('/Applications/Psychtoolbox'));
 sca;
 
-log_dir = [datadir 'Log_debug'];
+log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
 end
@@ -75,6 +75,8 @@ if debug
 end
 
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug);
+
+% [window, windowRect] = Screen('OpenWindow', screenNumber, [white/2 white/2 white/2], smallWindow4Debug);
 
 % [window, windowRect] = Screen('OpenWindow', screenNumber, grey, smallWindow4Debug);
 [center_x, center_y] = RectCenter(windowRect);
@@ -143,9 +145,8 @@ for session = 1:3
     % ET calibration:
     if info.ET
         disp('ET calibrating')
-        [~, info] = ELconfig(window, [SubName,'_SL',num2str(session)], info, screenNumber);
+        [el, info] = ELconfig_Bharath(window, [SubName,'_SL',num2str(session)], info, screenNumber);
         % Calibrate the eye tracker
-        el = EyelinkInitDefaults_BLG(window);
         EyelinkDoTrackerSetup(el);
     end
     disp('ET calibration done! >>>>>>>>>>')

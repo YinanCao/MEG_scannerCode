@@ -1,5 +1,5 @@
 clear; clc; close all;
-
+SubName = 'MSi';
 debug = 0;
 debugkey = 0;
 datadir = '/home/usera/Documents/';
@@ -22,7 +22,7 @@ blockRep = 1;
 
 EL_flag = 1;
 trigger_flag = 1;
-SubName = 'MT';
+
 
 % Define the keys
 KbName('UnifyKeyNames');
@@ -129,7 +129,7 @@ lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%
 fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
 
 Setup_keys;
-rng('shuffle');
+% rng('shuffle');
 trigger_enc = setup_trigger;
 disp('trigger setup done well.....')
  
@@ -171,7 +171,7 @@ for session = 1:3
     % ET calibration:
     if info.ET
         disp('ET calibrating')
-        [el, info] = ELconfig(window, [SubName,'_ML',num2str(session)], info, screenNumber);
+        [el, info] = ELconfig_Bharath(window, [SubName,'_ML',num2str(session)], info, screenNumber);
         % Calibrate the eye tracker
         EyelinkDoTrackerSetup(el);
         disp('Calibrating now....')

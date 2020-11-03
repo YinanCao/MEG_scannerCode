@@ -12,7 +12,7 @@ if ~exist(log_dir, 'dir')
 end
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'MT';
+SubName = 'MSi';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
@@ -21,7 +21,7 @@ dopractice = 0;
 all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
 
 pow = 0.5;
-jnd = 0.1;
+jnd = 0.08;
 s_jnd = (0.5+jnd)^pow-0.5.^pow;
 all_contrast = [0.2,0.5,0.8];
 c = all_contrast;
@@ -115,14 +115,7 @@ Set_Vars;
 Setup_keys;
 
 
-% % calibration:
-% if info.ET
-%     disp('ET calibrating')
-%     [el, info] = ELconfig(window, ['sub',num2str(info.SubNo),'_sess',...
-%         num2str(0),'_b',num2str(0)], info, screenNumber);
-%     % Calibrate the eye tracker
-%     EyelinkDoTrackerSetup(el);
-% end
+
 
 %---------------
 % Start the task
@@ -296,8 +289,7 @@ for session = 1
         % ET calibration:
         if info.ET
             disp('ET calibrating')
-            [el, info] = ELconfig(window,...
-                [SubName,'_AC',num2str(session),num2str(block)], info, screenNumber);
+            [el, info] = ELconfig_Bharath(window,[SubName,'_AC',num2str(session),num2str(block)], info, screenNumber);
             % Calibrate the eye tracker
             EyelinkDoTrackerSetup(el);
         end
