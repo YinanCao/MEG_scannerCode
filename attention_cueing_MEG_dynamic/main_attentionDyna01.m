@@ -1,25 +1,28 @@
 clear; clc; close all;
 
-debug = 1;
+debug = 0;
 
 probeDotcontrast = 0.6; % 0.5 is grey
+ndotFrames = 2;
+
 probeDotScale = 1/8;
+cd /home/usera/Documents/MEG_scannerCode/attention_cueing_MEG_dynamic/
 
-cd /Users/yinancaojake/Documents/Postdoc/UKE/code/attention_cueing_MEG_dynamic/
-
-% datadir = '/home/usera/Documents/';
-datadir = '/Users/yinancaojake/Documents/Postdoc/UKE/code/attention_cueing_MEG_dynamic/';
+datadir = '/home/usera/Documents/';
 log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
 end
 
-Screen('Preference', 'SkipSyncTests', 2);
+Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'tmp';
-EL_flag = 0;
-trigger_flag = 0;
+SubName = 'Cao';
+EL_flag = 1;
+trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if debug
     keyLR = {'F','J'}; % b,z,g,r for 1,2,3,4

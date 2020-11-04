@@ -5,7 +5,7 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'MSi';
+SubName = 'Cao';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'};
