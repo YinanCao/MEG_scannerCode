@@ -55,10 +55,10 @@ grey      = (white+black)/2;
 KbName('UnifyKeyNames')
 Screen('Preference', 'SkipSyncTests', 0);
 screenID = screenNumber;                           %Change this value to change display
-[windowPtr,rect] = PsychImaging('OpenWindow', screenID, grey, [0 0 1920 1080]);
+[windowPtr,rect] = PsychImaging('OpenWindow', screenID, black, [0 0 1920 1080]);
 
 %Set up some stimulus characteristics
-dotRadius = 30;
+dotRadius = 40;
 
 %Create some positions based on the regular display
 center = [rect(3)/2, rect(4)/2];
@@ -73,16 +73,21 @@ ifi = Screen('GetFlipInterval', windowPtr); %duration of one frame
 disp(['ifi = ',num2str(ifi)])
 %Start displaying dots
 
-for trl = 1:10
+for trl = 1:300
     
     OnsetTime = GetSecs;
-    for f = 1:60
+    if ~mod(trl,2), colour = [1,0,0,0];
+    elseif ~mod(trl,3), colour = [1,0.5,1,0.5];
+    else colour = [1,1,1,1];
+    end
+
+    for f = 1:3
         for quadrant = 1:4
         position = positions(quadrant, :);
-        colour = 1;
+        
         %Convert position to the same position in the quadrant 1 and draw
         [x,y] = convertToQuadrant(position, rect, quadrant); 
-        Screen('FillOval', windowPtr, colour, [x-dotRadius, y-dotRadius, x+dotRadius, y+dotRadius]);
+        Screen('FillOval', windowPtr, colour(quadrant), [x-dotRadius, y-dotRadius, x+dotRadius, y+dotRadius]);
         end
         %Flip
         OnsetTime = Screen('Flip', windowPtr, OnsetTime + (1-0.5)*ifi);

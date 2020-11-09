@@ -2,7 +2,7 @@ clear; clc; close all;
 
 debug = 0;
 
-probeDotcontrast = 0.6; % 0.5 is grey
+probeDotcontrast = 0.7; % 0.5 is grey
 ndotFrames = 2;
 
 probeDotScale = 1/8;
@@ -16,7 +16,7 @@ end
 
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Cao';
+SubName = 'Kos';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
