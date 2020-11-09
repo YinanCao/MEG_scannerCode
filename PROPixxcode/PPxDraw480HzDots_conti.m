@@ -76,12 +76,14 @@ disp(['ifi = ',num2str(ifi)])
 for trl = 1:300
     
     OnsetTime = GetSecs;
-    if ~mod(trl,2), colour = [1,0,0,0];
-    elseif ~mod(trl,3), colour = [1,0.5,1,0.5];
-    else colour = [1,1,1,1];
+    if ~mod(trl,2), colour = [1,0,0,0]; nf = 3;
+    elseif ~mod(trl,3), colour = [1,0.5,1,0.5]; nf = 5;
+    else colour = [1,1,1,1]; nf = 7;
     end
 
-    for f = 1:3
+
+
+    for f = 1:nf
         for quadrant = 1:4
         position = positions(quadrant, :);
         
@@ -92,7 +94,16 @@ for trl = 1:300
         %Flip
         OnsetTime = Screen('Flip', windowPtr, OnsetTime + (1-0.5)*ifi);
     end
-    Screen('Flip', windowPtr);
+
+        for quadrant = 1:4
+        position = positions(quadrant, :);
+        
+        %Convert position to the same position in the quadrant 1 and draw
+        [x,y] = convertToQuadrant(position, rect, quadrant); 
+        Screen('FillOval', windowPtr, 0, [x-dotRadius, y-dotRadius, x+dotRadius, y+dotRadius]);
+        end
+
+    Screen('Flip', windowPtr, OnsetTime + (1-0.5)*ifi);
     pause(0.5)
 
 %     %Keypress to exit
