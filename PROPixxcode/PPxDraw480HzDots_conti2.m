@@ -54,7 +54,7 @@ grey      = (white+black)/2;
 
 KbName('UnifyKeyNames')
 Screen('Preference', 'SkipSyncTests', 0);
-screenID = screenNumber;                           %Change this value to change display
+screenID = screenNumber;                          
 [windowPtr,rect] = PsychImaging('OpenWindow', screenID, black, [0 0 1920 1080]);
 
 %Set up some stimulus characteristics
@@ -68,48 +68,43 @@ positions=[center(1), center(2)-radius;...            %top
            center(1), center(2)+radius;...            %bottom
            center(1)-radius, center(2)];              %left
 
-% ifi = Screen('NominalFrameRate', windowPtr);
 ifi = Screen('GetFlipInterval', windowPtr); %duration of one frame
+ifi = 1/119.93;
 disp(['ifi = ',num2str(ifi)])
 %Start displaying dots
-ifi = 1/120;
 
-for trl = 1:50
-    
+ccc = [1,0,0,0;
+       1,1,0,0;
+       1,1,1,0;
+       1,0,1,0];
+nf = 7;
+
+for trl = 1:30
+    for block = 1:size(ccc,1)
+
     OnsetTime = GetSecs;
-    if ~mod(trl,2), colour = [1,0,0,0]; nf = 3;
-    elseif ~mod(trl,3), colour = [1,0.5,1,0.5]; nf = 5;
-    else colour = [1,1,1,1]; nf = 7;
-    end
-
+    colour = ccc(block,:);
     for f = 1:nf
         for quadrant = 1:4
         position = positions(quadrant, :);
-        
         %Convert position to the same position in the quadrant 1 and draw
         [x,y] = convertToQuadrant(position, rect, quadrant); 
         Screen('FillOval', windowPtr, colour(quadrant), [x-dotRadius, y-dotRadius, x+dotRadius, y+dotRadius]);
         end
-        %Flip
         OnsetTime = Screen('Flip', windowPtr, OnsetTime + (1-0.5)*ifi);
     end
 
-        for quadrant = 1:4
+    for quadrant = 1:4
         position = positions(quadrant, :);
-        
         %Convert position to the same position in the quadrant 1 and draw
         [x,y] = convertToQuadrant(position, rect, quadrant); 
         Screen('FillOval', windowPtr, 0, [x-dotRadius, y-dotRadius, x+dotRadius, y+dotRadius]);
-        end
+    end
 
     Screen('Flip', windowPtr, OnsetTime + (1-0.5)*ifi);
     pause(0.5)
-
-%     %Keypress to exit
-%     [keyIsDown, ~, ~, ~] = KbCheck;
-%     if keyIsDown
-%         break
-%     end 
+    
+    end
 end
         
 Screen('Closeall');

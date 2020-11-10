@@ -1,4 +1,4 @@
-function PPxDraw1440HzDots3b
+function PPxDraw1440HzDots3a
 
 %This function draws a moving dot refreshing at 1440Hz. It demonstrates how
 %to use the Psychtoolbox-3 function 'PsychPropixx' to queue and display
@@ -42,7 +42,7 @@ function PPxDraw1440HzDots3b
 %contents are flipped automatically. 
 
 % 2020 Apr 06       lef     written
-Datapixx('Close');
+
 %Check connection and open Datapixx if it's not open yet
 isConnected = Datapixx('isReady');
 if ~isConnected
@@ -50,7 +50,7 @@ if ~isConnected
 end
 
 %Open a display on the Propixx
-PsychDefaultSetup(2);
+% PsychDefaultSetup(2);
 AssertOpenGL;
 screenNumber = max(Screen('Screens'));
 white     = WhiteIndex(screenNumber);
@@ -60,7 +60,7 @@ KbName('UnifyKeyNames');
 Screen('Preference', 'SkipSyncTests', 0);
 screenID = screenNumber;                                           
 [windowPtr,~] = Screen('OpenWindow', screenID, 0);
-%[windowPtr,rect] = PsychImaging('OpenWindow', screenID, black, [0 0 1920 1080]);
+% [windowPtr,rect] = PsychImaging('OpenWindow', screenID, black, [0 0 1920 1080]);
 
 %Enable 1440 Hz mode (12 frames/flip), with sync flipping
 Datapixx('SetPropixxDlpSequenceProgram', 5);
@@ -74,6 +74,7 @@ stimulusBuffer = PsychProPixx('GetImageBuffer');
 dotRadius = 10;
 dotColour = [255, 255, 255];
 bkgColour = [0,0,0];
+greyColour = [255, 255, 255]/2;
 targetRadius = 100;
 center = [960/2, 540/2];
 
@@ -87,52 +88,52 @@ for k = 1:numel(angles)
      y = center(2) + targetRadius * sin(angles(k)*pi/180);
      rects(k,:) = [x-dotRadius, y-dotRadius, x+dotRadius, y+dotRadius];
 end
-counter = 1;
+
 
 baseRect = [0 0 1 1]*50;
 centeredRect = CenterRectOnPointd(baseRect, center(1), center(2));
 
 ifi = Screen('GetFlipInterval', windowPtr); %duration of one frame
+ifi = 1/120;
 disp(['ifi = ',num2str(ifi)])
 
-counter = 1;
-cc = [1,1,1,0,0,0,1,1,1,0,0,0];
-%cc = ones(1,12);
-% cc = [1,0,0,0,0,0,0,0,0,0,1,0];
+sr = 480;
+T = (1:10)*1/sr;
+r = 1./T
+
+cc = zeros(1,12);
+idx = 1:5:12;
+cc(idx) = 1;
 
 %Start drawing dots 
-while 1  
-    
-    for k = 1:12
-       
+OnsetTime = GetSecs;
+for trl = 1:50
+
+    for f = 1:10
+     for k = 1:12
        %Clear our stimulusBuffer by creating an all-black background
        Screen('FillRect', stimulusBuffer, bkgColour, [0,0,960,540]);
-     
+       
        %Draw circle in a specific location into our stimulusBuffer
-       %Screen('FillOval', stimulusBuffer, dotColour, rects(k,:));
+       % Screen('FillOval', stimulusBuffer, dotColour, rects(k,:));
        Screen('FillOval', stimulusBuffer, dotColour*cc(k), centeredRect);
        
        %Add the new image to our queue; the queue flips automatically once
        %12 frames have been added
-       PsychProPixx('QueueImage', stimulusBuffer);
-       
-       %counter = counter + 1;
+       %
+       OnsetTime = PsychProPixx('QueueImage', stimulusBuffer, OnsetTime + (1-0.5)*ifi);
+     end
     end
 
-    pause(1)
-    
-    %If we run out of target locations, loop back to the beginning
-    %if counter > nangles
-    %    counter = 1;
-    %end
-   
-    %Keypress to exit    
-    [keyIsDown, ~, ~, ~] = KbCheck;
-    if keyIsDown 
-        break
-    end 
-    
-end
+    % bkg clear
+    for f = 1:50
+     for k = 1:12
+       Screen('FillRect', stimulusBuffer, bkgColour, [0,0,960,540]);
+       OnsetTime = PsychProPixx('QueueImage', stimulusBuffer, OnsetTime + (1-0.5)*ifi);
+     end
+    end
+
+end % end trial
 
 %Close
 Datapixx('SetPropixxDlpSequenceProgram', 0);
