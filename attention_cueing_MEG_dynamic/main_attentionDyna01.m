@@ -2,8 +2,8 @@ clear; clc; close all;
 
 debug = 0;
 
-probeDotcontrast = 0.7; % 0.5 is grey
-ndotFrames = 2;
+probeDotcontrast = 0.65; % 0.5 is grey
+ndotFrames = 1;
 
 probeDotScale = 1/8;
 cd /home/usera/Documents/MEG_scannerCode/attention_cueing_MEG_dynamic/
@@ -16,7 +16,7 @@ end
 
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Kos';
+SubName = 'tmp';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
