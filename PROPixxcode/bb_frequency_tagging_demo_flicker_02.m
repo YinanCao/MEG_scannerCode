@@ -2,7 +2,7 @@
 % Function
 % If any questions, please contact a.zhigalov@bham.ac.uk
 %-------------------------------------------------------------------------------
-function bb_frequency_tagging_demo_flicker()
+function bb_frequency_tagging_demo_flicker_02(f1, f2)
 
 clc;
 
@@ -14,7 +14,7 @@ padWidth = 40;
 picWidth = 250;
 
 % set up parameters
-Screen('Preference', 'SkipSyncTests', 2); % must be 0 during experiment (!)
+Screen('Preference', 'SkipSyncTests', 0); % must be 0 during experiment (!)
 KbName('UnifyKeyNames');
 PsychDefaultSetup(2);
 
@@ -58,7 +58,7 @@ d2 = 1.5; % duration of tagging signal
 d6 = 0.3; % break
 D2 = round(FR * d2 * 12); % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6 * 12);
-[xColor1d0, xColor1d1] = tag_get_tagging_signal(d2 + d6, D2 + D6);
+[xColor1d0, xColor1d1] = tag_get_tagging_signal(d2 + d6, D2 + D6, f1, f2);
 xColor3d0 = reshape(xColor1d0, 4, 3, []);
 xColor3d1 = reshape(xColor1d1, 4, 3, []);
 xColor3d = {xColor3d0, xColor3d1};
@@ -132,8 +132,8 @@ end % end
 %-------------------------------------------------------------------------------
 function [lRect, rRect] = tag_get_pad_rect(width, xy)
 
-lRect = cell(1, 4); 
-rRect = cell(1, 4); 
+lRect = cell(1, 4);
+rRect = cell(1, 4);
 for i = 1:4
   x = xy{i}(1) - xy{1}(1);
   y = xy{i}(2) - xy{2}(2);
@@ -148,12 +148,10 @@ end % end
 %-------------------------------------------------------------------------------
 % Function
 %-------------------------------------------------------------------------------
-function [xColor1d0, xColor1d1] = tag_get_tagging_signal(d, D)
+function [xColor1d0, xColor1d1] = tag_get_tagging_signal(d, D, fl, fh)
 
 % parameters
 t = linspace(0, d, D);
-fl = 63;
-fh = 78;
 xColor1d0 = 0.5 * sin(2 * pi * fl * t) + 0.5; 
 xColor1d1 = 0.5 * sin(2 * pi * fh * t) + 0.5;
 
