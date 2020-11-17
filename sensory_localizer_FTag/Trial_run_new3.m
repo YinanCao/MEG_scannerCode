@@ -29,11 +29,11 @@ nsample = size(thisTrial,1);
 %ISIFrames = fix2stimFrames;
 
 % generate tagging signal
-FR = 1/ifi;
+FR = info.frameRate;
 d2 = Trial.SD; % duration of tagging signal
 d6 = Trial.ISI; % 
-D2 = round(FR * d2 * 12); % 12 is the Propixx multiplier for gray scale
-D6 = round(FR * d6 * 12);
+D2 = round(FR * d2) * 12; % 12 is the Propixx multiplier for gray scale
+D6 = round(FR * d6) * 12;
 tag_f = [63, 78, 92];
 % tag_f = ones(1,3)*63;
 tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
