@@ -23,7 +23,7 @@ ISIFrames = fix2stimFrames;
 % generate tagging signal
 FR = 1/ifi;
 d2 = Trial.SD; % duration of tagging signal
-d6 = Trial.ISI; % break
+d6 = Trial.ISI; % 
 D2 = round(FR * d2 * 12); % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6 * 12);
 tag_f = [63, 78, 92];
@@ -43,7 +43,9 @@ tag_setup_projector('set', 1);
 
 vbl = Screen('Flip', window);
 
-for sample = 1:nsample
+
+
+for sample = 1 %nsample
     
     % ISIFrames = round(Trial.ISI/ifi);
     thiscontrast = thisTrial(sample,1);
@@ -63,9 +65,9 @@ for sample = 1:nsample
                 for q = 1:4
                     Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
-                       baseM = baseM*0+1;
+                       % baseM = baseM*0+1;
                        M = baseM - grey; % bring to zero
-                       M = M.*fColor(q,chan);
+                       M = M.*fColor(q, chan);
                        M = M + grey;
                        Mx(:,:,chan) = M;
                     end
@@ -75,7 +77,8 @@ for sample = 1:nsample
             % 4 row by n columns matrix.
             for k = 1:4
             Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
-            Screen('FrameOval', window, holder_c, destinationRect(:,k), Gabor.outlineWidth);
+            Screen('FillOval', window, white, fixdotposX(k,:));
+            % Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*3);
             end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);
@@ -96,7 +99,7 @@ for sample = 1:nsample
         end
     end
     
-%     Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
+%     Rotated_fixation(window, fix_rect, center_x, center_y, dark_grey, [0,90]);
 %     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
 %     [~, stimOnset] = Screen('Flip', window, stimOff +  (ISIFrames - .5)*ifi);
 

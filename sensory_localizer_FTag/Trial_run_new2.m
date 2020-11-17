@@ -58,8 +58,7 @@ for sample = 1:nsample
         fColor = xColor3d{thisloc}(:,:,vblframe); % each row=quad,
         % column = RGB
         if vblframe < (D2 + 1) % tagging
-            destinationRect = nan(4,4); 
-            textureIndexTarg = nan(1,4);
+            destinationRect = []; textureIndexTarg = [];
                 for q = 1:4
                     Mx = zeros([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3

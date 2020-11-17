@@ -126,6 +126,24 @@ Screen('Flip', window);
 
 % main experiment
 
+
+fixdotpos = CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y);
+tmp = [fixdotpos(1),0;
+       0,fixdotpos(2);
+       fixdotpos(3),0;
+       0,fixdotpos(4)];
+fixdotposX = [];
+for q = 1:4
+    newtmp = [];
+    for edges = 1:size(tmp,1)
+       [x,y] = convertToQuadrant(tmp(edges,:), windowRect, q);
+       newtmp = [newtmp; x,y];
+    end
+    fixdotposX(q,:) = [newtmp(1,1), newtmp(2,2), newtmp(3,1), newtmp(4,2)];
+end
+
+
+
 for session = 1:3
     
     tic;
