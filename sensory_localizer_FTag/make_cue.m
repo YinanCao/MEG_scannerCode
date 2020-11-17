@@ -28,10 +28,18 @@ for whichG = instruct_loc % 1,2,3
     
     posX = Gabor.Xpos(whichG);
     posY = Gabor.Ypos(whichG);
-    dstRect = CenterRectOnPoint(gaborrect, posX, posY);
+
     
-    Screen('FrameOval', window, holder_c, dstRect, Gabor.outlineWidth*3);
-    dotSizePix = Gabor.SDofGaussX;
+    dstRect = CenterRectOnPoint(gaborrect, posX, posY);
+    q_dstRect_cue = zeros(4,4);
+    for q = 1:4
+        [x1,y1] = convertToQuadrant(dstRect(1:2), windowRect, q);
+        [x4,y4] = convertToQuadrant(dstRect(3:4), windowRect, q);
+        q_dstRect_cue(q,:) = [x1,y1,x4,y4];
+    end
+    
+    %Screen('FrameOval', window, holder_c, dstRect, Gabor.outlineWidth*3);
+    %dotSizePix = Gabor.SDofGaussX;
 %     Screen('DrawDots', window, [posX, posY], dotSizePix, holder_c, [], 2);
 end
 

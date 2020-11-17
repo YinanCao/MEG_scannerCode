@@ -126,8 +126,7 @@ Screen('Flip', window);
 
 % main experiment
 
-
-fixdotpos = CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y);
+fixdotpos = CenterRectOnPointd([0 0 lineWidthPix lineWidthPix]*2, center_x, center_y);
 tmp = [fixdotpos(1),0;
        0,fixdotpos(2);
        fixdotpos(3),0;
@@ -141,8 +140,6 @@ for q = 1:4
     end
     fixdotposX(q,:) = [newtmp(1,1), newtmp(2,2), newtmp(3,1), newtmp(4,2)];
 end
-
-
 for q = 1:4
  [center_x_q(q), center_y_q(q)] = convertToQuadrant([center_x, center_y], windowRect, q);
 end
@@ -250,11 +247,18 @@ for block = 1:length(loc_all)
     Trial.answer = [];
     Trial.eval_answer = [];
     
+    % change projector mode
+    tag_setup_projector('set', 1);
+    pause(1)
+    
     %%% waiting for the first trial and not start the task immediately
     instruct_loc = location;
-    make_cue;
-    Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
-    Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+    make_cue; % generate q_dstRect_cue
+for k = 1:4
+Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+Screen('FrameOval', window, white, q_dstRect_cue(k,:), Gabor.outlineWidth*2);
+end
     Screen('Flip', window);
     trigger(trigger_enc.cue_on)
     if info.ET
@@ -264,8 +268,10 @@ for block = 1:length(loc_all)
     WaitSecs(2);
     
     % back in fixation
-    Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
-    Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+for k = 1:4
+Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+end
     Screen('Flip', window);
     trigger(trigger_enc.cue_off)
     if info.ET
@@ -273,7 +279,7 @@ for block = 1:length(loc_all)
     end
 
     % trial starts:
-    tag_setup_projector('set', 1);
+    
     correctness = {'error','correct','missed'};
     save_d = [];
     
@@ -335,7 +341,7 @@ toc;
     end
     
     tag_setup_projector('reset', 1);
-    
+    Screen('TextSize', window, 22)
     DrawFormattedText(window, 'This block is finished! Thanks!', 'center', 'center', WhiteIndex(window));
     Screen('Flip', window);
     TTL = 0; % Get the TTL from the scanner
