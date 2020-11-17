@@ -149,6 +149,7 @@ end
 
 for session = 1:3
     
+    Screen('TextSize', window, 22)
     tag_setup_projector('reset', 1);
     
     tic;

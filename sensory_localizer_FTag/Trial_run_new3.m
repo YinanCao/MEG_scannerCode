@@ -7,7 +7,8 @@ for k = 1:4
 Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
 Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
 end
-[~, start_fix] = Screen('Flip', window);
+[~, vbl] = Screen('Flip', window);
+start_fix = vbl;
 trigger(trigger_enc.trial_start);
 if info.ET
     Eyelink('command', 'record_status_message "TRIAL %d/%d"', trial, nTrials);
@@ -16,13 +17,16 @@ if info.ET
 end
 fixFrames = round(Trial.BRD(trial)/ifi);
 
+pause(Trial.BRD(trial))
+% [~, vbl] = Screen('Flip', window, start_fix + (fixFrames-1)*ifi);
+
 fix2stimFrames = round(Trial.cue2StimD/ifi);
 stimFrames = round(Trial.SD/ifi);
 
 nsample = size(thisTrial,1);
 
-stimOff = start_fix; % initiaalize
-ISIFrames = fix2stimFrames;
+%stimOff = start_fix; % initiaalize
+%ISIFrames = fix2stimFrames;
 
 % generate tagging signal
 FR = 1/ifi;
@@ -40,9 +44,9 @@ end
 D2 = D2 / 12;
 D6 = D6 / 12;
 
-Screen('Flip', window);
+% Screen('Flip', window);
 
-vbl = Screen('Flip', window);
+%vbl = Screen('Flip', window);
 
 for sample = 1:nsample
     
