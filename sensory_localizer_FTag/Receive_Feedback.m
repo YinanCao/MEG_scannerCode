@@ -29,7 +29,9 @@ end
 % evaluate the answer
 if  Trial.answer(trial) =='I'
     Trial.eval_answer(trial)=2;
-    DrawFormattedText(window, ['Missed Response'], 'center', 'center',white);
+    for k = 1:4
+        DrawFormattedText(window, 'Missed Response', center_x_q(k), center_y_q(k), white);
+    end
     [start_FB]=Screen('Flip', window);
 %     trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
 %     trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
@@ -43,8 +45,14 @@ if  Trial.answer(trial) =='I'
 else
     if Trial.answer(trial)==Trial.true_answer(trial)
         Trial.eval_answer(trial)=1;
-        Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[45,135]);
-        Screen('FillOval', window, green, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+%         Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[45,135]);
+%         Screen('FillOval', window, green, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+%         
+        for k = 1:4
+        Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
+        Screen('FillOval', window, green, fixdotposX(k,:)); % fixation center dot
+        end
+        
         [start_FB]=Screen('Flip', window);
 %         trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
 %         trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
@@ -57,8 +65,15 @@ else
         WaitSecs(Trial.FBD); % Feedback presentation/ Correct
     else
         Trial.eval_answer(trial)=0;
-        Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[45,135]);
-        Screen('FillOval', window, red, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+%         Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[45,135]);
+%         Screen('FillOval', window, red, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+%         
+%         
+        for k = 1:4
+        Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
+        Screen('FillOval', window, red, fixdotposX(k,:)); % fixation center dot
+        end
+        
         [start_FB]=Screen('Flip', window);
 %         trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
 %         trigger(trigger_enc.fb_cue_on);  % trigger to mark start of the feedback cue
@@ -77,7 +92,12 @@ end
 Trial.real_FBD(trial)=GetSecs-start_FB;
 
 % after feekback, add a time wait until the next trial occurs
-Rotated_fixation(window,fix_rect,center_x,center_y,dark_grey,[0,90]);
-Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+% Rotated_fixation(window,fix_rect,center_x,center_y,dark_grey,[0,90]);
+% Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+
+for k = 1:4
+Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+end
 Screen('Flip', window);
 WaitSecs(Trial.TimeWaitafterFB);
