@@ -43,7 +43,7 @@ tag_setup_projector('set', 1);
 
 vbl = Screen('Flip', window);
 
-for sample = 1 %nsample
+for sample = 1:nsample
     
     % ISIFrames = round(Trial.ISI/ifi);
     thiscontrast = thisTrial(sample,1);
@@ -75,10 +75,13 @@ for sample = 1 %nsample
             % 4 row by n columns matrix.
             for k = 1:4
             Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
-            Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+            Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
             % Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*3);
             end
+        else
+            Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+            Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);
         Screen('Close', textureIndexTarg);
