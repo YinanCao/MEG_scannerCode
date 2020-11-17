@@ -29,8 +29,9 @@ end
 % evaluate the answer
 if  Trial.answer(trial) =='I'
     Trial.eval_answer(trial)=2;
+    DrawFormattedText(window, 'Missed Response', 'center','center', white);
     for k = 1:4
-        DrawFormattedText(window, 'Missed Response', center_x_q(k), center_y_q(k), white);
+%         DrawFormattedText(window, 'Missed Response', center_x_q(k), center_y_q(k), white);
     end
     [start_FB]=Screen('Flip', window);
 %     trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
