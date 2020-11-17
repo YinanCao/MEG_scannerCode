@@ -52,38 +52,36 @@ for sample = 1:nsample
     orientation = Trial.Gabor_orientation(thisangle);
     
     % Stimulus presentation
-    Make_gabor_Ftag; % creates "textureIndexTarg"
     for vblframe = 1:(D2 + D6)
         fColor = xColor3d{thisloc}(:,:,vblframe); % each row=quad,
-        % col = RGB
+        % column = RGB
         if vblframe < (D2 + 1) % tagging
             
-            
-            
-    %DRAW RED
-    Screen('BlendFunction', windowPtr, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, [1 0 0 0]);
-    colour = fColor(:,1);
-    for q = 1:4
-
-        q_dstRect(q,:)
-        M = [];
-            Make_gabor_Ftag; % create M
-            M = M-0.5; % bring to zero
-        Mx = M.*colour(q);
-        textureIndexTarg = Screen('MakeTexture', window, Mx);
-        Screen('DrawTexture', window, textureIndexTarg, [], q_dstRect(q,:), orientation, [], 1, fColor(q, :));
-    end
-            
-            
-
-            
-            
-            for q = 1:4
-                fColor(q, :)
-                
+            text_count = 1;
+            for channel = 1:3
+                blend_chan = zeros(1,4);
+                blend_chan(channel) = 1;
+                Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, blend_chan);
+                colour = fColor(:,channel);
+                for q = 1:4
+                    M = [];
+                    Make_gabor_Ftag; % create M
+                    M = M-0.5; % bring to zero
+                    M = M.*colour(q);
+                    M = M + 0.5;
+                    Mx = zeros([size(M,1),size(M,2),3]);
+                    Mx(:,:,channel) = M;
+                    textureIndexTarg{text_count} = Screen('MakeTexture', window, Mx);
+                    Screen('DrawTexture', window, textureIndexTarg{text_count}, [], q_dstRect(q,:), orientation, [], 1);
+                    text_count = text_count + 1;
+                end
             end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);
+        
+        for i = 1:12
+            Screen('Close', textureIndexTarg{i});
+        end
         if vblframe == 1
             trigger(trigger_enc.stim_on);  % trigger to mark start of the stim
             if info.ET
@@ -99,7 +97,7 @@ for sample = 1:nsample
         end
     end
     
-    Screen('Close', textureIndexTarg);
+    
     
 %     Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
 %     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
