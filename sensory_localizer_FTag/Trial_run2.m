@@ -60,7 +60,7 @@ for sample = 1:nsample
             for channel = 1:3
                 blend_chan = zeros(1,4);
                 blend_chan(channel) = 1;
-                Screen('BlendFunction', windowPtr, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, blend_chan);
+                Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, blend_chan);
                 colour = fColor(:,channel);
                 for q = 1:4
                     M = [];

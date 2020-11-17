@@ -1,13 +1,4 @@
 
-% cue_N = sum(Trial.cue_position(trial,:));
-% DrawFormattedText(window, num2str(cue_N), 'center', 'center', Trial.cueNumColor);
-% [~, start_cueNumber] = Screen('Flip', window);
-% trigger(trigger_enc.cue_N)
-% cueNumberFrames = round(Trial.cueNumberD/ifi);
-% Screen('Flip', window, start_cueNumber +  (cueNumberFrames - .5)*ifi); % stop it
-% trigger(trigger_enc.cue_N)
-% WaitSecs(.1);
-
 % fixation presentation before stimulus onset
 Rotated_fixation(window,fix_rect,center_x,center_y,dark_grey,[0,90]);
 Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
@@ -21,24 +12,7 @@ if info.ET
 end
 fixFrames = round(Trial.BRD(trial)/ifi);
 
-% cueFrames = round(Trial.cueD/ifi);
-% % add cue:
-% make_cue;
-% Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
-% Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-% [VBLTimestamp, cueOnsetTime] = Screen('Flip', window, start_fix+(fixFrames-0.5)*ifi);
-% trigger(trigger_enc.cue_on)
-% if info.ET
-%     Eyelink('message', num2str(trigger_enc.cue_on));
-% end
-% 
-% Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
-% Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-% [~,cueOff] = Screen('Flip', window, cueOnsetTime +  (cueFrames - .5)*ifi); % cue gone
-% trigger(trigger_enc.cue_off)
-% if info.ET
-%     Eyelink('message', num2str(trigger_enc.cue_off));
-% end
+
 
 fix2stimFrames = round(Trial.cue2StimD/ifi);
 stimFrames = round(Trial.SD/ifi);
@@ -115,7 +89,7 @@ for sample = 1:nsample
 %     Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
 %     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
 
-vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
+%vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
 end
 
 % reset projector to normal mode

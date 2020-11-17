@@ -6,7 +6,7 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Cao';
+SubName = 'tmp';
 EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'};
@@ -262,7 +262,7 @@ for block = 1:length(loc_all)
         answer_name = {'L','R'};
         Trial.true_answer(trial) = answer_name{(last_angle>=4)+1};
         
-        Trial_run;
+        Trial_run2;
         
         Receive_Feedback;
         disp(['user responded: ',Trial.answer(trial),' ',correctness{Trial.eval_answer(trial)+1}])
