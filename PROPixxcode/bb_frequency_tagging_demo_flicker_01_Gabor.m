@@ -69,7 +69,6 @@ tag_setup_projector('set', 0);
 freq = [63, 78, 87, 92, 108, 120, 133, 152];
 
 
-
 %Gabor_setup;
 
 for whichf = 1:length(freq)
