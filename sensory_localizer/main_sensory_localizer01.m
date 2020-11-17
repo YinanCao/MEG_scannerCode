@@ -5,8 +5,8 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Cao';
-EL_flag = 1;
+SubName = 'tmp';
+EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
@@ -17,7 +17,7 @@ loc_all = loc_all(randperm(length(loc_all)));
 all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
 all_contrast = [0.2,0.5,0.8];
 
-session_type = 'B';
+session_type = 'W';
 
 Block_type = 'f';
 Age = 24;

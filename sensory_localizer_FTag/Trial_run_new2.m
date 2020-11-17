@@ -26,7 +26,8 @@ d2 = Trial.SD; % duration of tagging signal
 d6 = Trial.ISI; % break
 D2 = round(FR * d2 * 12); % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6 * 12);
-tag_f = [63, 63, 63];
+tag_f = [63, 78, 92];
+tag_f = ones(1,3)*63;
 tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
 xColor3d = cell(0);
 for i = 1:length(tag_sig)
@@ -35,7 +36,7 @@ end
 D2 = D2 / 12;
 D6 = D6 / 12;
 
-Screen('Flip', window); 
+Screen('Flip', window);
 
 % Quadx12 mode
 tag_setup_projector('set', 1);
@@ -57,26 +58,23 @@ for sample = 1:nsample
         fColor = xColor3d{thisloc}(:,:,vblframe); % each row=quad,
         % column = RGB
         if vblframe < (D2 + 1) % tagging
-            destinationRect = [];
-            text_count = 1;
-            for channel = 1:3
-                blend_chan = zeros(1,4);
-                blend_chan(channel) = 1;
-                % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, blend_chan);
-                colour = fColor(:,channel);
+            destinationRect = []; textureIndexTarg = [];
                 for q = 1:4
-                    M = baseM-grey; % bring to zero
-                    M = M.*colour(q);
-                    M = M + grey;
-                    Mx = ones([size(M,1),size(M,2),3])*grey;
-                    Mx(:,:,channel) = M;
-                    textureIndexTarg(text_count) = Screen('MakeTexture', window, Mx);
-                    destinationRect(:,text_count) = q_dstRect(q,:)';
-                    text_count = text_count + 1;
+                    Mx = zeros([size(baseM,1),size(baseM,2),3]);
+                    for chan = 1:3
+                       baseM = baseM*0+1;
+                       M = baseM-grey; % bring to zero
+                       M = M.*fColor(q,chan);
+                       M = M + grey;
+                       Mx(:,:,chan) = M;
+                    end
+                    textureIndexTarg(q) = Screen('MakeTexture', window, Mx);
+                    destinationRect(:,q) = q_dstRect(q,:)';
                 end
-            end
             % 4 row by n columns matrix.
-            Screen('DrawTextures', window, textureIndexTarg, [], destinationRect, orientation, [], ones(1,12));
+            for k = 1:4
+            Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation(k), [], 1);
+            end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);
         Screen('Close', textureIndexTarg);
@@ -105,12 +103,11 @@ for sample = 1:nsample
 %     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
 
 vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
-end
-
+end % end of sample
 
 % reset projector to normal mode
 tag_setup_projector('reset', 1);
-pause(.05)
+% pause(.05)
 
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

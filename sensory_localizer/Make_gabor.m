@@ -27,6 +27,7 @@ for whichG = thisloc % top, left, right
     dstRect = CenterRectOnPoint(gaborrect, posX, posY);
     valleyC = BorW;
     c = all_contrast(thiscontrast); % top, left, right
+ c=1;
     gauss = exp(-(x.^2/(2*SDofGaussX^2)+y.^2/(2*SDofGaussY(whichG)^2)));
     gauss(gauss < 0.01) = 0;
     t = 0;
@@ -53,7 +54,7 @@ for whichG = thisloc % top, left, right
     textureIndexTarg = Screen('MakeTexture', window, M);
     Screen('DrawTextures', window, textureIndexTarg, [], dstRect,orientation);
     if c>0
-        Screen('FrameOval', window, holder_c,dstRect,Gabor.outlineWidth);
+        %Screen('FrameOval', window, holder_c,dstRect,Gabor.outlineWidth);
     end
     
     

@@ -19,7 +19,7 @@ a = SDofGaussX; % lowerbound of SD of y-axis of Gaussian ellipse
 b = SDofGaussX*elp; % upperbound of SD of y-axis of Gaussian ellipse
 SDofGaussY  = (b-a)*rand(1,Gabor.numGabors) + a;  % SD of y-axis of Gaussian ellipse
 % contrast = all_contrast(thiscontrast);
-
+thisloc = 2;
 for whichG = thisloc % top, left, right
 
     posX = Gabor.Xpos(whichG); % top, left, right
@@ -35,6 +35,7 @@ for whichG = thisloc % top, left, right
     
     valleyC = BorW;
     c = all_contrast(thiscontrast); % top, left, right
+    c = 1;
     gauss = exp(-(x.^2/(2*SDofGaussX^2)+y.^2/(2*SDofGaussY(whichG)^2)));
     gauss(gauss < 0.01) = 0;
     t = 0;
@@ -56,12 +57,13 @@ for whichG = thisloc % top, left, right
     yc = py + patchHalfSize*sin(th);
     idx = inpolygon(y(:),x(:),xc,yc);
     M(~idx) = grey;
+    baseM = M;
 
     % M = uint8(M*255);
-    Mx = cat(3, M, M, M);
+    % Mx = cat(3, M, M, M);
     
     
-    textureIndexTarg = Screen('MakeTexture', window, M);
+    % textureIndexTarg = Screen('MakeTexture', window, M);
     
 %     Screen('DrawTextures', window, textureIndexTarg, [], dstRect,orientation);
 %     if c>0

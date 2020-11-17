@@ -1,5 +1,6 @@
 clear; clc; close all;
 
+Screen('CloseAll');
 debug = 0;
 smallWindow4Debug = [0, 0, 1920, 1080];
 %smallWindow4Debug  = [1921, 0, 1920*2, 1080];
@@ -7,7 +8,7 @@ datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'tmp';
-EL_flag = 1;
+EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
@@ -39,7 +40,7 @@ end
 %--------------------------------------
 % Open the window and Setup PTB  values
 %--------------------------------------
-PsychDefaultSetup(2);
+PsychDefaultSetup(2); % norm to 0 1
 AssertOpenGL;
 screenNumber = max(Screen('Screens'));
 
@@ -75,7 +76,7 @@ if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
 
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug);
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, black, smallWindow4Debug);
 
 % [window, windowRect] = Screen('OpenWindow', screenNumber, [white/2 white/2 white/2], smallWindow4Debug);
 
@@ -93,7 +94,7 @@ topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+% Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
 
 % tag_setup_projector('close', 1);
 tag_setup_projector('open', 1);
@@ -191,7 +192,7 @@ for session = 1:3
     end
 
     Task_message; % stay still
-    pause(6);
+    pause(1);
     Screen('Flip', window);
     
     trigger(trigger_enc.block_start);  % trigger to mark start of the block
@@ -262,7 +263,7 @@ for block = 1:length(loc_all)
         answer_name = {'L','R'};
         Trial.true_answer(trial) = answer_name{(last_angle>=4)+1};
         
-        Trial_run2;
+        Trial_run_new2;
         
         Receive_Feedback;
         disp(['user responded: ',Trial.answer(trial),' ',correctness{Trial.eval_answer(trial)+1}])
