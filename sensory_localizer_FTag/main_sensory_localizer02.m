@@ -126,7 +126,7 @@ Screen('Flip', window);
 
 % main experiment
 
-fixdotpos = CenterRectOnPointd([0 0 lineWidthPix lineWidthPix]*2, center_x, center_y);
+fixdotpos = CenterRectOnPointd([0 0 lineWidthPix lineWidthPix]*1.2, center_x, center_y);
 tmp = [fixdotpos(1),0;
        0,fixdotpos(2);
        fixdotpos(3),0;
@@ -143,6 +143,7 @@ end
 for q = 1:4
  [center_x_q(q), center_y_q(q)] = convertToQuadrant([center_x, center_y], windowRect, q);
 end
+
 
 for session = 1:3
     
@@ -256,7 +257,7 @@ for block = 1:length(loc_all)
 make_cue; % generate q_dstRect_cue
     for k = 1:4
     Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-    Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+%     Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
     Screen('FrameOval', window, white, q_dstRect_cue(k,:), Gabor.outlineWidth*2);
     end
     Screen('Flip', window);
@@ -270,7 +271,7 @@ make_cue; % generate q_dstRect_cue
     % back in fixation
     for k = 1:4
     Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-    Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+%     Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
     end
     Screen('Flip', window);
     trigger(trigger_enc.cue_off)

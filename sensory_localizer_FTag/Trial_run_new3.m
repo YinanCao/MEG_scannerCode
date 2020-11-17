@@ -81,13 +81,13 @@ for sample = 1:nsample
             for k = 1:4
             Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-            Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+%             Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
             % Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*3);
             end
         else
             for k = 1:4
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-            Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+%             Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
             end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);
@@ -131,7 +131,7 @@ probe2Resp = round(Trial.StRCD/ifi);
 % Screen('FillOval', window, blue, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
 for k = 1:4
 Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
-Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+% Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
 end
 [~, respOn] = Screen('Flip', window, stimOff + (probe2Resp-0.5)*ifi);
 trigger(trigger_enc.resp_cue_on);  % trigger to mark start of the response cue
