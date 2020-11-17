@@ -81,8 +81,8 @@ for sample = 1:nsample
             end
         else
             for k = 1:4
-            %Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-            %Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+            Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+            Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
             end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);
@@ -111,7 +111,7 @@ for sample = 1:nsample
 %     Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
 %     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
 
-vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
+%vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
 end % end of sample
 
 % reset projector to normal mode

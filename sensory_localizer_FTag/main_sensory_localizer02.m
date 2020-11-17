@@ -143,6 +143,9 @@ for q = 1:4
 end
 
 
+for q = 1:4
+ [center_x_q(q), center_y_q(q)] = convertToQuadrant([center_x, center_y], windowRect, q);
+end
 
 for session = 1:3
     
