@@ -59,11 +59,6 @@ for whichG = thisloc % top, left, right
     M(~idx) = grey;
     baseM = M;
 
-    % M = uint8(M*255);
-    % Mx = cat(3, M, M, M);
-    
-    
-    % textureIndexTarg = Screen('MakeTexture', window, M);
     
 %     Screen('DrawTextures', window, textureIndexTarg, [], dstRect,orientation);
 %     if c>0

@@ -49,7 +49,7 @@ for sample = 1:nsample
     thiscontrast = thisTrial(sample,1);
     thisangle = thisTrial(sample,2);
     thisloc = thisTrial(sample,3);
-    orientation = Trial.Gabor_orientation(thisangle)*ones(1,12);
+    orientation = Trial.Gabor_orientation(thisangle);
     Make_gabor_Ftag; % create baseM
     
     % Stimulus presentation
@@ -61,10 +61,10 @@ for sample = 1:nsample
             destinationRect = nan(4,4); 
             textureIndexTarg = nan(1,4);
                 for q = 1:4
-                    Mx = zeros([size(baseM,1),size(baseM,2),3]);
+                    Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
                        baseM = baseM*0+1;
-                       M = baseM-grey; % bring to zero
+                       M = baseM - grey; % bring to zero
                        M = M.*fColor(q,chan);
                        M = M + grey;
                        Mx(:,:,chan) = M;
@@ -74,7 +74,8 @@ for sample = 1:nsample
                 end
             % 4 row by n columns matrix.
             for k = 1:4
-            Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation(k), [], 1);
+            Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
+            Screen('FrameOval', window, holder_c, destinationRect(:,k), Gabor.outlineWidth);
             end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);

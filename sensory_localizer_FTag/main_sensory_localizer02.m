@@ -71,12 +71,11 @@ right    = KbName(keyLR{2});
 
 Screen('Preference', 'TextRenderer', 1); % smooth text
 
-
 if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
 
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, black, smallWindow4Debug);
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug);
 
 % [window, windowRect] = Screen('OpenWindow', screenNumber, [white/2 white/2 white/2], smallWindow4Debug);
 
@@ -263,7 +262,7 @@ for block = 1:length(loc_all)
         answer_name = {'L','R'};
         Trial.true_answer(trial) = answer_name{(last_angle>=4)+1};
         
-        Trial_run_new2;
+        Trial_run_new3;
         
         Receive_Feedback;
         disp(['user responded: ',Trial.answer(trial),' ',correctness{Trial.eval_answer(trial)+1}])
