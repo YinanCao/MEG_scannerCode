@@ -253,12 +253,12 @@ for block = 1:length(loc_all)
     
     %%% waiting for the first trial and not start the task immediately
     instruct_loc = location;
-    make_cue; % generate q_dstRect_cue
-for k = 1:4
-Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
-Screen('FrameOval', window, white, q_dstRect_cue(k,:), Gabor.outlineWidth*2);
-end
+make_cue; % generate q_dstRect_cue
+    for k = 1:4
+    Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+    Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+    Screen('FrameOval', window, white, q_dstRect_cue(k,:), Gabor.outlineWidth*2);
+    end
     Screen('Flip', window);
     trigger(trigger_enc.cue_on)
     if info.ET
@@ -268,10 +268,10 @@ end
     WaitSecs(2);
     
     % back in fixation
-for k = 1:4
-Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
-end
+    for k = 1:4
+    Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+    Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+    end
     Screen('Flip', window);
     trigger(trigger_enc.cue_off)
     if info.ET
@@ -279,7 +279,6 @@ end
     end
 
     % trial starts:
-    
     correctness = {'error','correct','missed'};
     save_d = [];
     
