@@ -142,6 +142,7 @@ for q = 1:4
     fixdotposX(q,:) = [newtmp(1,1), newtmp(2,2), newtmp(3,1), newtmp(4,2)];
 end
 
+
 for q = 1:4
  [center_x_q(q), center_y_q(q)] = convertToQuadrant([center_x, center_y], windowRect, q);
 end
