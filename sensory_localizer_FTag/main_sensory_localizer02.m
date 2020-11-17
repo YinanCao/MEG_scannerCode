@@ -149,6 +149,8 @@ end
 
 for session = 1:3
     
+    tag_setup_projector('reset', 1);
+    
     tic;
     % eye tracking prep:
     DrawFormattedText(window, 'We will calibrate your eye positions',...
@@ -270,8 +272,10 @@ for block = 1:length(loc_all)
     end
 
     % trial starts:
+    tag_setup_projector('set', 1);
     correctness = {'error','correct','missed'};
     save_d = [];
+    
     for trial = 1:nTrials
         
         disp(['>>> Trial: ',num2str(trial),' of ', num2str(nTrials)])
@@ -328,6 +332,8 @@ toc;
         end
         Eyelink('StopRecording');
     end
+    
+    tag_setup_projector('reset', 1);
     
     DrawFormattedText(window, 'This block is finished! Thanks!', 'center', 'center', WhiteIndex(window));
     Screen('Flip', window);

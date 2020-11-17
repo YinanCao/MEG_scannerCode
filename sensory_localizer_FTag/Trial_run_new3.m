@@ -1,8 +1,12 @@
 
 % fixation presentation before stimulus onset
-Rotated_fixation(window,fix_rect,center_x,center_y,dark_grey,[0,90]);
-Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-% [~, start_delay] = Screen('Flip', window);
+% Rotated_fixation(window,fix_rect,center_x,center_y,dark_grey,[0,90]);
+% Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+
+for k = 1:4
+Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+end
 [~, start_fix] = Screen('Flip', window);
 trigger(trigger_enc.trial_start);
 if info.ET
@@ -26,7 +30,7 @@ d2 = Trial.SD; % duration of tagging signal
 d6 = Trial.ISI; % 
 D2 = round(FR * d2 * 12); % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6 * 12);
-tag_f = [63, 78, 92];
+% tag_f = [63, 78, 92];
 tag_f = ones(1,3)*63;
 tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
 xColor3d = cell(0);
@@ -37,9 +41,6 @@ D2 = D2 / 12;
 D6 = D6 / 12;
 
 Screen('Flip', window);
-
-% Quadx12 mode
-tag_setup_projector('set', 1);
 
 vbl = Screen('Flip', window);
 
@@ -115,15 +116,19 @@ for sample = 1:nsample
 end % end of sample
 
 % reset projector to normal mode
-tag_setup_projector('reset', 1);
+% tag_setup_projector('reset', 1);
 % pause(.05)
 
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 probe2Resp = round(Trial.StRCD/ifi);
 % response cue
-Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]+45);
-Screen('FillOval', window, blue, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+% Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]+45);
+% Screen('FillOval', window, blue, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+for k = 1:4
+Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
+Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+end
 [~, respOn] = Screen('Flip', window, stimOff + (probe2Resp-0.5)*ifi);
 trigger(trigger_enc.resp_cue_on);  % trigger to mark start of the response cue
 if info.ET
