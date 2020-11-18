@@ -35,6 +35,8 @@ for whichG = thisloc % top, left, right
     
     valleyC = BorW;
     c = all_contrast(thiscontrast); % top, left, right
+    
+    c = 1;
 
     gauss = exp(-(x.^2/(2*SDofGaussX^2)+y.^2/(2*SDofGaussY(whichG)^2)));
     gauss(gauss < 0.01) = 0;
