@@ -1,6 +1,6 @@
 
 clc;
-tag_f = [63, 78, 94];
+tag_f = [63, 78, 85, 91, 103, 135];
 pair = nchoosek(tag_f,2)
 
 harmo = sort([tag_f*2, tag_f*3, tag_f*1])

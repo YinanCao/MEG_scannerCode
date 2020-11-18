@@ -31,7 +31,10 @@ d6 = Trial.ISI; %
 D2 = round(FR * d2);
 D6 = round(FR * d6);
 
-tag_f = repmat([63, 250],[1,8]);
+
+if tagging_checkMode
+    tag_f = repmat([63, 150],[1,8]);
+end
 tag_sig = tag_get_tagging_signal(d2 + d6, (D2 + D6)*12, tag_f);
 xColor3d = cell(0);
 for i = 1:length(tag_sig)
@@ -45,12 +48,18 @@ for sample = 1:nsample
     thisangle = thisTrial(sample,2);
     thisloc = thisTrial(sample,3);
     orientation = Trial.Gabor_orientation(thisangle);
-    Make_gabor_Ftag; % create baseM
+    Make_gabor_Ftag; % create baseM, will use thisloc
+    % but in tagging_checkMode=1, thisloc = 2;
+    
+    whichfreq = thisloc;
+    if tagging_checkMode
+       whichfreq = sample;
+    end
+    fColor = xColor3d{whichfreq}(:,:,vblframe); % each row=quad,
     
     % Stimulus presentation
     for vblframe = 1:(D2 + D6)
-    
-        fColor = xColor3d{sample}(:,:,vblframe); % each row=quad,
+   
         % column = RGB
         if vblframe < (D2 + 1) % tagging
             destinationRect = nan(4,4); 
@@ -58,11 +67,11 @@ for sample = 1:nsample
                 for q = 1:4
                     Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
-                       baseM = ones(size(baseM));
+                       if tagging_checkMode
+                           baseM = ones(size(baseM));
+                       end
                        M = baseM - grey; % bring to zero
-
                        M = M.*fColor(q, chan);
-
                        M = M + grey;
                        Mx(:,:,chan) = M;
                     end
@@ -72,13 +81,14 @@ for sample = 1:nsample
             % 4 row by n columns matrix.
             for k = 1:4
             Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
-%             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-%             Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
+            if ~tagging_checkMode
+            Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+            Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
+            end
             end
         else
             for k = 1:4
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-%             Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
             end
         end
         vbl = Screen('Flip', window, vbl + 0.5 * ifi);

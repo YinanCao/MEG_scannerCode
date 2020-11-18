@@ -90,8 +90,7 @@ else
         end
         WaitSecs(Trial.FBD); % Feedback presentation/ Wrong
     end
-    
-    
+
 end
 
 Trial.real_FBD(trial)=GetSecs-start_FB;
