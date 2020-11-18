@@ -28,22 +28,16 @@ nsample = size(thisTrial,1);
 FR = info.frameRate;
 d2 = Trial.SD; % duration of tagging signal
 d6 = Trial.ISI; % 
-D2 = round(FR * d2) * 12; % 12 is the Propixx multiplier for gray scale
-D6 = round(FR * d6) * 12;
-% tag_f = [63, 150, 85];
-tag_f = ones(1,3)*63;
-tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
+D2 = round(FR * d2);
+D6 = round(FR * d6);
+
+tag_f = repmat([63, 250],[1,8]);
+tag_sig = tag_get_tagging_signal(d2 + d6, (D2 + D6)*12, tag_f);
 xColor3d = cell(0);
 for i = 1:length(tag_sig)
     xColor3d{i} = reshape(tag_sig{i}, 4, 3, []);
 end
-D2 = D2 / 12;
-D6 = D6 / 12;
-
-% Screen('Flip', window);
-
-%vbl = Screen('Flip', window);
-
+    
 for sample = 1:nsample
     
     % ISIFrames = round(Trial.ISI/ifi);
@@ -56,7 +50,7 @@ for sample = 1:nsample
     % Stimulus presentation
     for vblframe = 1:(D2 + D6)
     
-        fColor = xColor3d{thisloc}(:,:,vblframe); % each row=quad,
+        fColor = xColor3d{sample}(:,:,vblframe); % each row=quad,
         % column = RGB
         if vblframe < (D2 + 1) % tagging
             destinationRect = nan(4,4); 
