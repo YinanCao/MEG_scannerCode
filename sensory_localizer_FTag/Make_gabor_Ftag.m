@@ -20,6 +20,7 @@ b = SDofGaussX*elp; % upperbound of SD of y-axis of Gaussian ellipse
 SDofGaussY  = (b-a)*rand(1,Gabor.numGabors) + a;  % SD of y-axis of Gaussian ellipse
 % contrast = all_contrast(thiscontrast);
 
+thisloc = 2;
 for whichG = thisloc % top, left, right
 
     posX = Gabor.Xpos(whichG); % top, left, right

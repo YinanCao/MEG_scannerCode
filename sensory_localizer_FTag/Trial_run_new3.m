@@ -16,7 +16,6 @@ end
 
 pause(Trial.BRD(trial))
 
-
 % fix2stimFrames = round(Trial.cue2StimD/ifi);
 % stimFrames = round(Trial.SD/ifi);
 
@@ -32,7 +31,7 @@ d6 = Trial.ISI; %
 D2 = round(FR * d2) * 12; % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6) * 12;
 tag_f = [63, 78, 85];
-% tag_f = ones(1,3)*63;
+
 tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
 xColor3d = cell(0);
 for i = 1:length(tag_sig)
@@ -65,7 +64,7 @@ for sample = 1:nsample
                 for q = 1:4
                     Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
-                       % baseM = baseM*0+1;
+                       baseM = ones(size(baseM));
                        M = baseM - grey; % bring to zero
                        if mod(sample,2)
                           M = M.*fColor(q, chan);
