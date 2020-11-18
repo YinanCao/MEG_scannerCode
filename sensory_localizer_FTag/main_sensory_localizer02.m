@@ -13,6 +13,7 @@ trigger_flag = 1;
 keyLR = {'z','g'};
 
 tag_f = [63, 78, 85];
+GaborDiameter = 3;
 % tag_f = [91, 103, 135];
 tagging_checkMode = 0;
 
@@ -160,6 +161,7 @@ end
 
 for session = 1:3
     
+    HideCursor;
     Screen('TextSize', window, 22)
     tag_setup_projector('reset', 1);
     
@@ -354,6 +356,7 @@ toc;
     end
     
     tag_setup_projector('reset', 1);
+    ShowCursor;
     Screen('TextSize', window, 22)
     DrawFormattedText(window, 'This block is finished! Thanks!', 'center', 'center', WhiteIndex(window));
     Screen('Flip', window);

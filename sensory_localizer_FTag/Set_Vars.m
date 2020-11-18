@@ -47,7 +47,7 @@ Gabor.freq_deg              = 5; % spatial frequency (cycles/deg)
 Gabor.period                = 1/Gabor.freq_deg*info.pix_per_deg; % in pixels
 Gabor.freq_pix              = 1/Gabor.period;% in pixels
 % Gabor.SDofGaussX            = 20; % SD of x-axis of Gaussian ellipse (fixed; unit = pixel)
-Gabor.diameter_deg          = 3;
+Gabor.diameter_deg          = GaborDiameter;
 Gabor.patchHalfSize         = round(info.pix_per_deg*(Gabor.diameter_deg/2)); % 50 pix
 Gabor.SDofGaussX            = Gabor.patchHalfSize/2;
 Gabor.patchPixel            = -Gabor.patchHalfSize:Gabor.patchHalfSize;
