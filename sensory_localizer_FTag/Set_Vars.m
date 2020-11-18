@@ -1,5 +1,5 @@
 
-
+info.cuewidth      = 2; % pix
 info.nTrials       = nTrials;
 info.SubName       = SubName;
 info.SubNo         = SubNo;

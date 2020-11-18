@@ -1,4 +1,4 @@
-function Rotated_fixation(window, fix_rect, center_x, center_y, Color,Angle)
+function Rotated_fixation(window, fix_rect, center_x, center_y, Color, Angle)
 Screen('glPushMatrix', window);
 Screen('glTranslate', window, center_x, center_y);
 Screen('glRotate', window, Angle(1), 0, 0);

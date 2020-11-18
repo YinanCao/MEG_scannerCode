@@ -17,7 +17,9 @@ loc_all = repmat(1:3,1,block_rep);
 loc_all = loc_all(randperm(length(loc_all)));
 
 all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
-all_contrast = [0.2,0.5,0.8];
+% all_contrast = [0.2,0.5,0.8];
+
+all_contrast = [0.2,0.5,1];
 
 session_type = 'B';
 
@@ -29,7 +31,6 @@ session_No = 1;
 test_str = 'SL';
 stim_str = 'Gabor';
 
-% addpath(genpath('/Applications/Psychtoolbox'));
 sca;
 
 log_dir = [datadir 'Log'];
@@ -75,11 +76,12 @@ if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
 
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug);
+bkgcolor = grey;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, bkgcolor, smallWindow4Debug);
 
 % [window, windowRect] = Screen('OpenWindow', screenNumber, [white/2 white/2 white/2], smallWindow4Debug);
 
-% [window, windowRect] = Screen('OpenWindow', screenNumber, grey, smallWindow4Debug);
+
 [center_x, center_y] = RectCenter(windowRect);
 Screen('TextFont', window, 'Helvetica'); % define text font
 Screen('TextSize', window, 22); % define text font
@@ -93,7 +95,7 @@ topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-% Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
 
 % tag_setup_projector('close', 1);
 tag_setup_projector('open', 1);
@@ -125,7 +127,9 @@ pause(1);
 Screen('Flip', window);
 
 % main experiment
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 fixdotpos = CenterRectOnPointd([0 0 lineWidthPix lineWidthPix]*1.2, center_x, center_y);
 tmp = [fixdotpos(1),0;
        0,fixdotpos(2);
@@ -143,7 +147,9 @@ end
 for q = 1:4
  [center_x_q(q), center_y_q(q)] = convertToQuadrant([center_x, center_y], windowRect, q);
 end
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 for session = 1:3
     
@@ -254,11 +260,11 @@ for block = 1:length(loc_all)
     
     %%% waiting for the first trial and not start the task immediately
     instruct_loc = location;
-make_cue; % generate q_dstRect_cue
+    make_cue; % generate q_dstRect_cue
     for k = 1:4
     Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
 %     Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
-    Screen('FrameOval', window, white, q_dstRect_cue(k,:), Gabor.outlineWidth*2);
+    Screen('FrameOval', window, white, q_dstRect_cue(k,:), Gabor.outlineWidth*info.cuewidth);
     end
     Screen('Flip', window);
     trigger(trigger_enc.cue_on)

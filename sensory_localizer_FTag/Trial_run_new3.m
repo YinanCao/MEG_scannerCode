@@ -1,11 +1,8 @@
 
 % fixation presentation before stimulus onset
-% Rotated_fixation(window,fix_rect,center_x,center_y,dark_grey,[0,90]);
-% Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-
 for k = 1:4
 Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
+% Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
 end
 [~, vbl] = Screen('Flip', window);
 start_fix = vbl;
@@ -15,13 +12,13 @@ if info.ET
     Eyelink('message', 'TRIALID %d', trial);
     Eyelink('message', num2str(trigger_enc.trial_start));
 end
-fixFrames = round(Trial.BRD(trial)/ifi);
+% fixFrames = round(Trial.BRD(trial)/ifi);
 
 pause(Trial.BRD(trial))
-% [~, vbl] = Screen('Flip', window, start_fix + (fixFrames-1)*ifi);
 
-fix2stimFrames = round(Trial.cue2StimD/ifi);
-stimFrames = round(Trial.SD/ifi);
+
+% fix2stimFrames = round(Trial.cue2StimD/ifi);
+% stimFrames = round(Trial.SD/ifi);
 
 nsample = size(thisTrial,1);
 
@@ -34,7 +31,7 @@ d2 = Trial.SD; % duration of tagging signal
 d6 = Trial.ISI; % 
 D2 = round(FR * d2) * 12; % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6) * 12;
-tag_f = [63, 78, 92];
+tag_f = [63, 78, 85];
 % tag_f = ones(1,3)*63;
 tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
 xColor3d = cell(0);
@@ -82,7 +79,7 @@ for sample = 1:nsample
             Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
 %             Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
-            % Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*3);
+            Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
             end
         else
             for k = 1:4
@@ -108,27 +105,14 @@ for sample = 1:nsample
         end
     end
     
-%     Rotated_fixation(window, fix_rect, center_x, center_y, dark_grey, [0,90]);
-%     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-%     [~, stimOnset] = Screen('Flip', window, stimOff +  (ISIFrames - .5)*ifi);
-
-%     stop stimulus:
-%     Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]);
-%     Screen('FillOval', window, white, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
-
 %vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
 end % end of sample
-
-% reset projector to normal mode
-% tag_setup_projector('reset', 1);
-% pause(.05)
 
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 probe2Resp = round(Trial.StRCD/ifi);
 % response cue
-% Rotated_fixation(window, fix_rect, center_x, center_y,dark_grey,[0,90]+45);
-% Screen('FillOval', window, blue, CenterRectOnPointd([0 0 lineWidthPix lineWidthPix], center_x, center_y));
+
 for k = 1:4
 Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
 % Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
