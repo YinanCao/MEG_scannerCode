@@ -141,5 +141,5 @@ xCoords                       = [-fixCrossDimPix fixCrossDimPix 0 0];
 yCoords                       = [0 0 -fixCrossDimPix fixCrossDimPix];
 allCoords                     = [xCoords; yCoords];
 lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%6 pix
-fix_rect                      = [-5 -1 5 1];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
+fix_rect                      = [-7 -2 7 2];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
 
