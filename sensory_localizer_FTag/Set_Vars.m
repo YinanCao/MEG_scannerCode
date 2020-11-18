@@ -14,9 +14,9 @@ info.BlockNo       = 1;
 info.ET            = EL_flag;
 info.do_trigger    = trigger_flag;
 info.kb_setup      = 'MEG';
-info.mon_width_cm  = 45;% width of monitor (cm)
-info.mon_height_cm = 26.5;% height of monitor (cm)
-info.view_dist_cm  = 50;% viewing distance (cm)
+info.mon_width_cm  = 46;% width of monitor (cm)
+info.mon_height_cm = 27;% height of monitor (cm)
+info.view_dist_cm  = 53;% viewing distance (cm)
 info.pix_per_deg   = info.window_rect(3) *(1 ./ (2 * atan2(info.mon_width_cm / 2, info.view_dist_cm))) * pi/180;
 
 info.width = info.mon_width_cm;
@@ -46,9 +46,10 @@ Gabor.tr_contrast           = all_contrast;
 Gabor.freq_deg              = 5; % spatial frequency (cycles/deg)
 Gabor.period                = 1/Gabor.freq_deg*info.pix_per_deg; % in pixels
 Gabor.freq_pix              = 1/Gabor.period;% in pixels
-Gabor.SDofGaussX            = 20; % SD of x-axis of Gaussian ellipse (fixed; unit = pixel)
-Gabor.diameter_deg          = 2;
+% Gabor.SDofGaussX            = 20; % SD of x-axis of Gaussian ellipse (fixed; unit = pixel)
+Gabor.diameter_deg          = 3;
 Gabor.patchHalfSize         = round(info.pix_per_deg*(Gabor.diameter_deg/2)); % 50 pix
+Gabor.SDofGaussX            = Gabor.patchHalfSize/2;
 Gabor.patchPixel            = -Gabor.patchHalfSize:Gabor.patchHalfSize;
 Gabor.elp                   = 1;
 Gabor.numGabors             = 3;

@@ -226,7 +226,7 @@ for session = 1:3
     end
 
     Task_message; % stay still
-    pause(1);
+    pause(4);
     Screen('Flip', window);
     
     trigger(trigger_enc.block_start);  % trigger to mark start of the block
