@@ -16,6 +16,7 @@ keyLR = {'z','g'};
 GaborDiameter = 3;
 tag_f = [91, 103, 135];
 tagging_checkMode = 0;
+info.tag_f = tag_f;
 
 block_rep = 1;
 loc_all = repmat(1:3,1,block_rep);
