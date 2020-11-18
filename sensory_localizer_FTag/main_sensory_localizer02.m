@@ -7,13 +7,13 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'tmp';
+SubName = 'Kos';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
 tag_f = [63, 78, 85];
-GaborDiameter = 3;
+GaborDiameter = 1.8;
 % tag_f = [91, 103, 135];
 tagging_checkMode = 0;
 
@@ -33,7 +33,7 @@ Age = 24;
 Gender = 'F';
 Hand = 'R';
 session_No = 1;
-test_str = 'SL';
+test_str = 'SLFT';
 stim_str = 'Gabor';
 
 sca;
