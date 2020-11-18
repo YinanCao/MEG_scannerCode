@@ -30,7 +30,7 @@ d2 = Trial.SD; % duration of tagging signal
 d6 = Trial.ISI; % 
 D2 = round(FR * d2) * 12; % 12 is the Propixx multiplier for gray scale
 D6 = round(FR * d6) * 12;
-tag_f = [63, 78, 85];
+tag_f = [63, 150, 85];
 
 tag_sig = tag_get_tagging_signal(d2 + d6, D2 + D6, tag_f);
 xColor3d = cell(0);
