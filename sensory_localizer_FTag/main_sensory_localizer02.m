@@ -12,9 +12,9 @@ EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
-tag_f = [63, 78, 85];
-GaborDiameter = 1.8;
-% tag_f = [91, 103, 135];
+% tag_f = [63, 78, 85];
+GaborDiameter = 3;
+tag_f = [91, 103, 135];
 tagging_checkMode = 0;
 info.tag_f = tag_f;
 
@@ -165,6 +165,7 @@ for session = 1:3
     HideCursor;
     Screen('TextSize', window, 22)
     tag_setup_projector('reset', 1);
+    pause(3)
     
     tic;
     % eye tracking prep:
@@ -245,6 +246,7 @@ for session = 1:3
     
     % change projector mode, only here once!
     tag_setup_projector('set', 1);
+    pause(3)
     
 for block = 1:length(loc_all)
     
