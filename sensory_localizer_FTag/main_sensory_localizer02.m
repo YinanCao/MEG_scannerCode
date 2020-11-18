@@ -7,14 +7,14 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Kos';
+SubName = 'MTM';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
-% tag_f = [63, 78, 85];
-GaborDiameter = 1.8;
-tag_f = [91, 103, 135];
+tag_f = [63, 78, 85];
+GaborDiameter = 3;
+% tag_f = [91, 103, 135];
 tagging_checkMode = 0;
 info.tag_f = tag_f;
 
@@ -27,7 +27,7 @@ all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
 
 all_contrast = [0.2,0.5,1];
 
-session_type = 'W';
+session_type = 'B';
 
 Block_type = 'f';
 Age = 24;
