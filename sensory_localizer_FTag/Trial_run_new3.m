@@ -55,11 +55,11 @@ for sample = 1:nsample
     if tagging_checkMode
        whichfreq = sample;
     end
-    fColor = xColor3d{whichfreq}(:,:,vblframe); % each row=quad,
+    
     
     % Stimulus presentation
     for vblframe = 1:(D2 + D6)
-   
+        fColor = xColor3d{whichfreq}(:,:,vblframe); % each row=quad,
         % column = RGB
         if vblframe < (D2 + 1) % tagging
             destinationRect = nan(4,4); 
