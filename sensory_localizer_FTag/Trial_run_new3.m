@@ -67,7 +67,9 @@ for sample = 1:nsample
                     for chan = 1:3
                        % baseM = baseM*0+1;
                        M = baseM - grey; % bring to zero
-                       M = M.*fColor(q, chan);
+                       if mod(sample,2)
+                          M = M.*fColor(q, chan);
+                       end
                        M = M + grey;
                        Mx(:,:,chan) = M;
                     end
