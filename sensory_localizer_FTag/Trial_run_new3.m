@@ -60,9 +60,9 @@ for sample = 1:nsample
                     for chan = 1:3
                        baseM = ones(size(baseM));
                        M = baseM - grey; % bring to zero
-                       if mod(sample,2)
-                          M = M.*fColor(q, chan);
-                       end
+
+                       M = M.*fColor(q, chan);
+
                        M = M + grey;
                        Mx(:,:,chan) = M;
                     end
