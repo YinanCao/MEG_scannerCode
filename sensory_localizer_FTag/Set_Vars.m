@@ -136,10 +136,10 @@ Gabor.Fixation_cross_w_deg    = Gabor.Fixation_dot_deg*4;
 Gabor.Fixation_dot_pix        = round(info.pix_per_deg*Gabor.Fixation_dot_deg);
 Gabor.Fixation_cross_h_pix    = round(info.pix_per_deg*Gabor.Fixation_cross_h_deg);
 Gabor.Fixation_cross_w_pix    = round(info.pix_per_deg*Gabor.Fixation_cross_w_deg);
-fixCrossDimPix                = round(info.pix_per_deg*(Gabor.Fixation_cross_w_deg/2));%12 pix
+fixCrossDimPix                = round(info.pix_per_deg*(Gabor.Fixation_cross_w_deg/2))/4;%12 pix
 xCoords                       = [-fixCrossDimPix fixCrossDimPix 0 0];
 yCoords                       = [0 0 -fixCrossDimPix fixCrossDimPix];
 allCoords                     = [xCoords; yCoords];
-lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%6 pix
+lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg)/4;%6 pix
 fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
 
