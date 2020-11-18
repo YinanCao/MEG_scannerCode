@@ -13,7 +13,7 @@ trigger_flag = 1;
 keyLR = {'z','g'};
 
 tag_f = [63, 78, 85];
-GaborDiameter = 3;
+GaborDiameter = 1.8;
 % tag_f = [91, 103, 135];
 tagging_checkMode = 0;
 info.tag_f = tag_f;
@@ -106,7 +106,7 @@ Priority(topPriorityLevel);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
 
-% tag_setup_projector('close', 1);
+
 tag_setup_projector('open', 1);
 tag_setup_projector('reset', 1);
 
@@ -132,8 +132,8 @@ while TTL==0
         TTL = 0;
     end
 end
-pause(1);
 Screen('Flip', window);
+pause(1)
 
 % main experiment
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,6 +185,7 @@ for session = 1:3
         end
     end
     Screen('Flip', window);
+    pause(1)
     
     % ET calibration:
     if info.ET
@@ -213,8 +214,8 @@ for session = 1:3
             TTL = 0;
         end
     end
-    pause(1);
     Screen('Flip', window);
+    pause(1)
     % >>>>>>>>>>>>>>>>>>>>>>>>>
     % >>>>>>>>>>>>>>>>>>>>>>>>>
     % >>>>>>>>>>>>>>>>>>>>>>>>>
@@ -242,7 +243,9 @@ for session = 1:3
     sname = sprintf('%s/%s_%s_%s_%s_%s_sess_%d_%02d%02d-%02d%02d.mat',...
        log_dir,SubName,session_type,Block_type,test_str,stim_str,session,c(3),c(2),c(4),c(5));
     
-   
+    % change projector mode, only here once!
+    tag_setup_projector('set', 1);
+    
 for block = 1:length(loc_all)
     
     disp(['starting Session ',num2str(session),' Block ',num2str(block)])
@@ -264,9 +267,8 @@ for block = 1:length(loc_all)
     Trial.answer = [];
     Trial.eval_answer = [];
     
-    % change projector mode
-    tag_setup_projector('set', 1);
-    pause(1)
+
+
     
     %%% waiting for the first trial and not start the task immediately
     instruct_loc = location;
@@ -380,9 +382,9 @@ end % end of session
 % Close and clear all
 Screen('CloseAll');
 ShowCursor;
-
-tag_setup_projector('close', 1);
 tag_setup_projector('reset', 1);
+tag_setup_projector('close', 1);
+
 
 fclose('all');
 Priority(0);
