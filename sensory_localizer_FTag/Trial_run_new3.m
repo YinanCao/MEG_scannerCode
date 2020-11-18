@@ -78,9 +78,8 @@ for sample = 1:nsample
             % 4 row by n columns matrix.
             for k = 1:4
             Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
-            Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-%             Screen('FillOval', window, white, fixdotposX(k,:)); % fixation center dot
-            Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
+%             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+%             Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
             end
         else
             for k = 1:4

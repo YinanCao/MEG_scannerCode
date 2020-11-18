@@ -76,7 +76,7 @@ if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
 
-bkgcolor = grey;
+bkgcolor = black;
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, bkgcolor, smallWindow4Debug);
 
 % [window, windowRect] = Screen('OpenWindow', screenNumber, [white/2 white/2 white/2], smallWindow4Debug);
