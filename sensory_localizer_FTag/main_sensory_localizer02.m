@@ -7,15 +7,15 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'MTM';
+SubName = 'tmp';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
-% tag_f = [63, 78, 85];
-GaborDiameter = 1.8;
-tag_f = [91, 103, 135];
-tagging_checkMode = 0;
+tag_f = [63, 78, 85];
+GaborDiameter = 3;
+% tag_f = [91, 103, 135];
+tagging_checkMode = 1;
 info.tag_f = tag_f;
 
 block_rep = 1;
