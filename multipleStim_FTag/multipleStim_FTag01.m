@@ -13,6 +13,7 @@ trigger_flag = 1;
 keyLR = {'z','g'};
 
 tag_f = [63, 78, 85];
+Gabor_onoff = [0,1,0];
 GaborDiameter = 3;
 % tag_f = [91, 103, 135];
 tagging_checkMode = 1;

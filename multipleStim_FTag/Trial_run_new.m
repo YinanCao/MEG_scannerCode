@@ -65,7 +65,7 @@ for sample = 1:nsample
     thiscontrast = thisTrial(sample,1);
     thisangle = thisTrial(sample,2);
 %     thisloc = thisTrial(sample,3);
-    thisloc = [1,2,3]; % present at all 3 locations
+%     thisloc = [1,2,3]; % present at all 3 locations
     %orientation = Trial.Gabor_orientation(thisangle);
     orientation = repmat([-45, 0, 45],1,4);
     Make_gabor_Ftag; % create baseM, will use thisloc
@@ -86,7 +86,7 @@ for sample = 1:nsample
                     Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
                        if tagging_checkMode
-                           baseM = ones(size(baseM));
+                           baseM = ones(size(baseM))*Gabor_onoff(whichG);
                        end
                        M = baseM - grey; % bring to zero
                        M = M.*fColor(q, chan);
