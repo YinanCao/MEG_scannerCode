@@ -7,7 +7,7 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'tmp';
+SubName = 'tmp2';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};

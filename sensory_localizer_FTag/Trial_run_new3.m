@@ -48,6 +48,7 @@ for sample = 1:nsample
     thisangle = thisTrial(sample,2);
     thisloc = thisTrial(sample,3);
     orientation = Trial.Gabor_orientation(thisangle);
+    orientations = repmat(orientation,[1,4]);
     Make_gabor_Ftag; % create baseM, will use thisloc
     % but in tagging_checkMode=1, thisloc = 2;
     
@@ -79,8 +80,9 @@ for sample = 1:nsample
                     destinationRect(:,q) = q_dstRect(q,:)';
                 end
             % 4 row by n columns matrix.
+            Screen('DrawTextures', window, textureIndexTarg, [], destinationRect, orientations, [], 1);
             for k = 1:4
-            Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
+            % Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
             if ~tagging_checkMode
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
             Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
