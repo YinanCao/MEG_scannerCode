@@ -8,7 +8,7 @@ Screen('Preference', 'SkipSyncTests', 0);
 info.ET = 0;
 info.SubNo = 1;
 info.BlockNo = 1;
-info.do_trigger = 0;
+info.do_trigger = 1;
 info.kb_setup = 'noMEG';
 
 % info.width
@@ -108,12 +108,14 @@ for trial = 1:20
     Screen('FillRect', window, rectColor, centeredRect);
     
     [~, start_stim] = Screen('Flip', window);
+    trigger(16);
     if info.ET
         Eyelink('message', 'stimon'); 
     end
     
     stimFrames = round(2/ifi);
     [~, end_stim] = Screen('Flip', window, start_stim +  (stimFrames - .5)*ifi); % cue gone
+    trigger(14);
     if info.ET
         Eyelink('message', 'stimoff'); 
     end
@@ -159,7 +161,7 @@ for trial = 1:20
         end
     end
     
-    pause(.2)
+    pause(.5)
     if info.ET
         Eyelink('message', 'trialend'); 
     end
