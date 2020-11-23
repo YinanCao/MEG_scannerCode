@@ -31,9 +31,9 @@ d6 = Trial.ISI; %
 D2 = round(FR * d2);
 D6 = round(FR * d6);
 
-% if tagging_checkMode
-%     tag_f = repmat([63, 150],[1,8]);
-% end
+if tagging_checkMode
+    tag_f = [63, 78, 85, 91, 103, 135, 145, 150];
+end
 tag_sig = tag_get_tagging_signal(d2 + d6, (D2 + D6)*12, tag_f);
 xColor3d = cell(0);
 for i = 1:length(tag_sig)
@@ -81,7 +81,9 @@ for sample = 1:nsample
             count = 1;
             for q = 1:4 % quadrant
                 for whichG = 1:3 % stimuli
-                    fColor = xColor3d{whichG}(:,:,vblframe); % each row=quad,
+                    % let's do it per sample, and change every sample
+                    % increasing freq.
+                    fColor = xColor3d{sample}(:,:,vblframe); % each row=quad,
                     q_dstRect = q_dstRect_all{whichG};
                     Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
