@@ -86,12 +86,12 @@ for sample = 1:nsample
                     Mx = nan([size(baseM,1),size(baseM,2),3]);
                     for chan = 1:3
                        if tagging_checkMode
-                           baseM = ones(size(baseM))*Gabor_onoff(whichG);
+                           baseM = ones(size(baseM));
                        end
                        M = baseM - grey; % bring to zero
                        M = M.*fColor(q, chan);
                        M = M + grey;
-                       Mx(:,:,chan) = M;
+                       Mx(:,:,chan) = M*Gabor_onoff(whichG);
                     end
                     textureIndexTarg(count) = Screen('MakeTexture', window, Mx);
                     destinationRect(:,count) = q_dstRect(q,:)';
