@@ -79,7 +79,7 @@ ifi = info.frameDur;
 % stimulus:
 baseRect = [0 0 200 200];
 centeredRect = CenterRectOnPointd(baseRect, center_x, center_y);
-rectColor = [1 0 0];
+rectColor = [1 1 1];
 
 % Maximum priority level
 topPriorityLevel = MaxPriority(window);
@@ -103,7 +103,7 @@ if info.ET
 end
 
 % trials:
-for trial = 1:10
+for trial = 1:20
      
     Screen('FillRect', window, rectColor, centeredRect);
     
@@ -112,7 +112,7 @@ for trial = 1:10
         Eyelink('message', 'stimon'); 
     end
     
-    stimFrames = round(.5/ifi);
+    stimFrames = round(2/ifi);
     [~, end_stim] = Screen('Flip', window, start_stim +  (stimFrames - .5)*ifi); % cue gone
     if info.ET
         Eyelink('message', 'stimoff'); 
@@ -159,7 +159,7 @@ for trial = 1:10
         end
     end
     
-    pause(.5)
+    pause(.2)
     if info.ET
         Eyelink('message', 'trialend'); 
     end
