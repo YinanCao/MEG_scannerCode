@@ -1,5 +1,6 @@
 clear; clc; close all;
 % Yinan Cao, UKE 11/2020
+Screen('CloseAll');
 sca;
 
 Screen('Preference', 'SkipSyncTests', 0);
@@ -21,7 +22,7 @@ else
 end
 trigger_enc = setup_trigger;
 
-
+KbName('UnifyKeyNames');
 % set up key
 setup_key;
 if strcmp(info.kb_setup,'MEG')
