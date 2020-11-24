@@ -123,9 +123,10 @@ for vblframe = 1:D2
         for k = 1:4
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
         end
-        for k = 1:size(destinationRect,2)
-            Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
-        end
+        Screen('FrameOval', window, white, destinationRect, Gabor.outlineWidth*info.cuewidth);
+%         for k = 1:size(destinationRect,2)
+%             Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
+%         end
     end
     
     % draw second cue
