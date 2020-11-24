@@ -5,7 +5,7 @@ tagging_checkMode = 0;
 
 session_type = 'B';
 all_contrast = 0.65*ones(1,3);
-probeDotcontrast = 0.52; % 0.5 is grey
+probeDotcontrast = 0.58; % 0.5 is grey
 ndotFrames = 1;
 
 info.probeDotcontrast = probeDotcontrast;
