@@ -90,7 +90,7 @@ Trial.Triangle_dir          = 'U';
 Trial.numGabors             = 3;
 Trial.Gabor_arng_rotation   = 'R';
 Trial.Gabor_orientation     = all_angles; %linspace(30, 180-30, 6);
-Trial.rot_deg               = 7;
+Trial.rot_deg               = 5;
 
 Trial.cueNumColor          = white;
 

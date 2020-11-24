@@ -5,11 +5,13 @@ tagging_checkMode = 0;
 
 session_type = 'B';
 all_contrast = 0.65*ones(1,3);
-probeDotcontrast = 0.5; % 0.5 is grey
+probeDotcontrast = 0.52; % 0.5 is grey
 ndotFrames = 1;
 
+info.probeDotcontrast = probeDotcontrast;
+
 tag_f = [63, 78, 85];
-GaborDiameter = 2;
+GaborDiameter = 1.8;
 
 probeDotScale = 1/8;
 cd /home/usera/Documents/MEG_scannerCode/attention_cueing_MEG_dynamic_FTag/
