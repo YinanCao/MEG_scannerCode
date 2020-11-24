@@ -1,9 +1,9 @@
 clear; clc; close all;
-SubName = 'MSi';
+SubName = 'YC';
 debug = 0;
 debugkey = 0;
 datadir = '/home/usera/Documents/';
-addpath(genpath('/Applications/Psychtoolbox'));
+% addpath(genpath('/Applications/Psychtoolbox'));
 sca;
 
 info.SubNo = 1;
@@ -20,7 +20,7 @@ Screen('Preference', 'SkipSyncTests', 0);
 nTrials = 20;
 blockRep = 1;
 
-EL_flag = 1;
+EL_flag = 0;
 trigger_flag = 1;
 
 
@@ -102,7 +102,6 @@ Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 patchHalfSize = 50;
 gaborrect = [-patchHalfSize -patchHalfSize patchHalfSize patchHalfSize];
 dstRect = CenterRectOnPoint(gaborrect, center_x, center_y);
-
 info.SubName       = SubName;
 info.ET            = EL_flag;
 info.do_trigger    = trigger_flag;
