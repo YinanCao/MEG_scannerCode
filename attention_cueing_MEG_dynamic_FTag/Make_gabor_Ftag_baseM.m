@@ -19,7 +19,8 @@ BorW = Gabor.WorB; % 1:black, -1:white
 SDofGaussY = SDofGaussX;
 
 valleyC = BorW;
-c = all_contrast(thiscontrast); % top, left, right
+contrast = Trial.contrast(trial,:);
+c = contrast(1); % top, left, right
 
 gauss = exp(-(x.^2/(2*SDofGaussX^2)+y.^2/(2*SDofGaussY^2)));
 gauss(gauss < 0.01) = 0;
