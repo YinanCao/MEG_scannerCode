@@ -24,7 +24,7 @@ end
 
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'tmp';
+SubName = 'Kos';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
