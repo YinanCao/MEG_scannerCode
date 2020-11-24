@@ -1,5 +1,5 @@
 
-function make_cue(Gabor, cue_position, q_dstRect_all)
+function make_cue(window, Gabor, cue_position, q_dstRect_all)
 % gabor parameters:
 % patchHalfSize = Gabor.patchHalfSize; % canvas on which gaussians are drawn
 
