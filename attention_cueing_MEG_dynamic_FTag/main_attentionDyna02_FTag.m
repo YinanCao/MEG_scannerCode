@@ -25,7 +25,7 @@ end
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'Kos';
-EL_flag = 0;
+EL_flag = 1;
 trigger_flag = 1;
 keyLR = {'z','g'}; % b,z,g,r for 1,2,3,4
 
