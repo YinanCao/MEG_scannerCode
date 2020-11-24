@@ -3,11 +3,13 @@ clear; clc; close all;
 debug = 0;
 tagging_checkMode = 0;
 
-probeDotcontrast = 0.55; % 0.5 is grey
+session_type = 'B';
+all_contrast = 0.65*ones(1,3);
+probeDotcontrast = 0.5; % 0.5 is grey
 ndotFrames = 1;
 
 tag_f = [63, 78, 85];
-GaborDiameter = 2.2;
+GaborDiameter = 2;
 
 probeDotScale = 1/8;
 cd /home/usera/Documents/MEG_scannerCode/attention_cueing_MEG_dynamic_FTag/
@@ -32,9 +34,9 @@ if debug
 end
 
 all_angles = [-67.5 -45 -22.5 22.5  45  67.5]; % Gabor orientations
-all_contrast = 0.5*ones(1,3);
 
-session_type = 'B';
+
+
 Block_type = 'f';
 Age = 24;
 Gender = 'F';

@@ -1,5 +1,5 @@
 
-function make_cue(window, Gabor, cue_position, q_dstRect_all)
+function make_cue(window, Gabor, cue_position, q_dstRect_all, colour)
 % gabor parameters:
 % patchHalfSize = Gabor.patchHalfSize; % canvas on which gaussians are drawn
 
@@ -15,7 +15,7 @@ if ~isempty(cue_pos)
     for q = 1:4
         for whichG = cue_pos % 1,2,3
             tmp_loc = q_dstRect_all{whichG};
-            Screen('FrameOval', window, Gabor.holder_c, tmp_loc(q,:), Gabor.outlineWidth*3);
+            Screen('FrameOval', window, colour, tmp_loc(q,:), Gabor.outlineWidth*3);
         end
     end
 end

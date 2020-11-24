@@ -57,7 +57,7 @@ fixFrames = round(Trial.BRD(trial)/ifi);
 cueFrames = round(Trial.cueD/ifi); % 100ms
 % add first cue:
 cue_position1 = Trial.cue_position1(trial,:);
-make_cue(window, Gabor, cue_position1, q_dstRect_all)
+make_cue(window, Gabor, cue_position1, q_dstRect_all, white)
 for k = 1:4
     Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
 end
@@ -130,7 +130,7 @@ for vblframe = 1:D2
     
     % draw second cue
     if vblframe >= cue2_time(1) && vblframe <= cue2_time(2)
-        make_cue(window, Gabor, cue_position2, q_dstRect_all)
+        make_cue(window, Gabor, cue_position2, q_dstRect_all, white)
     end
     
     % draw low-contrast transient dot target
