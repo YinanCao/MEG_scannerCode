@@ -3,11 +3,11 @@ clear; clc; close all;
 debug = 0;
 tagging_checkMode = 0;
 
-probeDotcontrast = 0.65; % 0.5 is grey
+probeDotcontrast = 0.55; % 0.5 is grey
 ndotFrames = 1;
 
 tag_f = [63, 78, 85];
-GaborDiameter = 1.6;
+GaborDiameter = 2.2;
 
 probeDotScale = 1/8;
 cd /home/usera/Documents/MEG_scannerCode/attention_cueing_MEG_dynamic_FTag/
@@ -335,6 +335,7 @@ for session = 1
         
         tag_setup_projector('reset', 1);
         ShowCursor;
+        Screen('TextSize', window, 22); % define text font
 
         final_message = sprintf('Thanks! Please rest... \n \n Your accuracy score was: %0.2f',Trial.Acc_withMissed*100);
         DrawFormattedText(window, final_message, 'center', 'center', WhiteIndex(window));

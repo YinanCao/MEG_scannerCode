@@ -122,6 +122,8 @@ for vblframe = 1:D2
     if ~tagging_checkMode
         for k = 1:4
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
+        end
+        for k = 1:size(destinationRect,2)
             Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
         end
     end
