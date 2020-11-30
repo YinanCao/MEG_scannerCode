@@ -3,7 +3,7 @@ clear; clc; close all;
 %% set test parameters
 contrast_test = 1;
 freq_test = [63, 1];
-version_test = 1:3;
+version_test = 2:3;
 
 Nrep = 6;
 
@@ -251,7 +251,8 @@ for trial = 1:Ntrial
     baseM_all{1} = ref_Gabor;
     
     % random starting value:
-    which_bkg = randsample(1:length(candid_bkg),1);
+%     which_bkg = randsample(1:length(candid_bkg),1);
+    which_bkg = length(candid_bkg);
     baseM_all{2} = Gabor_pool{which_bkg};
 
     bkg_color = [grey, candid_bkg(which_bkg), black];
