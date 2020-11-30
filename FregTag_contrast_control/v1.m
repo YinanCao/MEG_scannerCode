@@ -302,7 +302,7 @@ for trial = 1:Ntrial
         
         % check response:
         start = vbl;
-        % flush_kbqueues(info.kbqdev);
+        flush_kbqueues(info.kbqdev);
         [keyIsDown, secs, press_key, deltaSecs] = KbCheck();
         while ( press_key(left)==0  && press_key(right)==0 && GetSecs-start<0.4 * ifi)
             [keyIsDown, secs, press_key, deltaSecs] = KbCheck();
