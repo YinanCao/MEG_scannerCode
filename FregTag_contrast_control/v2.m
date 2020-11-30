@@ -1,14 +1,12 @@
 clear; clc; close all;
 
 %% set test parameters
-contrast_test = 1;
-freq_test = [63, 1];
+contrast_test = [0.1:0.02:0.3,0.5,0.7,0.9,1];
+freq_test = [63, 90, 120, 1];
 version_test = 2:3;
-
-Nrep = 6;
-
-% tag_f = [63,90,120];
+Nrep = 2;
 info.f = freq_test;
+length(contrast_test)*length(freq_test)*length(version_test)*Nrep
 %%
 
 Screen('CloseAll');
@@ -16,7 +14,7 @@ Screen('Preference', 'SkipSyncTests', 0);
 
 cd /home/usera/Documents/MEG_scannerCode/FregTag_contrast_control/
 
-SubName = 'Atmp';
+SubName = 'CaoY';
 datadir = '/home/usera/Documents/';
 log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
@@ -360,7 +358,7 @@ for v = unique(D(:,3))'
             x = D(D(:,3)==v&D(:,2)==f&D(:,1)==c,4);
             p = [p; c, nanmean(x)];
         end
-        plot(p(:,1),p(:,2))
+        plot(p(:,1),p(:,2),'o-')
         hold on;
     end
     title(['Version ',num2str(v)])
