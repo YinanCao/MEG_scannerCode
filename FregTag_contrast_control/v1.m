@@ -5,6 +5,8 @@ contrast_test = 1;
 freq_test = 63;
 version_test = 1:3;
 
+Nrep = 6;
+
 % tag_f = [63,90,120];
 info.f = freq_test;
 %%
@@ -140,7 +142,7 @@ idx = inpolygon(y(:),x(:),xc,yc);
 allc = contrast_test;
 allf = 1:length(freq_test);
 allv = version_test;
-Nrep = 1;
+
 cond = [];
 for x = 1:length(allc)
     for y = 1:length(allf)
