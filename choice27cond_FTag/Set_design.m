@@ -66,7 +66,7 @@ design_all = design_all(shuffle_ord,:,:);
 % 24.0000   54.0000
 % 12.0000  108.0000
 
-trl_in_block = 72;
+trl_in_block = nTrials;
 block = size(design_all,1)/trl_in_block;
 tt = []; design_blk = cell(0);
 for b = 1:block

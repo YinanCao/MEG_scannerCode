@@ -13,6 +13,8 @@ tag_f = [63, 78, 85];
 GaborDiameter = 1.8;
 all_angles = [20 45 70]; % Gabor orientations
 
+nTrials = 72;
+
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'Atrying';
@@ -247,7 +249,7 @@ for block = 1:Nblock_all
 
     answer_str = {'T','L','R'};
     design_y = design_blk{block};
-    nTrials = size(design_y,1);
+
     for trial = 1:nTrials % nTrials was defined in Set_Vars.m
 
         % stimulus angle:
