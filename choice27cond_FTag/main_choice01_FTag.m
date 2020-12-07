@@ -7,7 +7,7 @@ if ~exist(log_dir, 'dir')
 end
 sca;
 
-multisample_flag = 2;
+multisample_flag = 3;
 debug = 0;
 session_type = 'W';
 tag_f = [63, 78, 85];
