@@ -33,7 +33,7 @@ if  Trial.answer(trial) =='I'
     Trial.eval_answer(trial)=2;
     % DrawFormattedText(window, 'Missed Response', center_x,center_y, white);
     for k = 1:4
-        DrawFormattedText(window, 'Missed Response', center_x_q(k)-40, center_y_q(k), white);
+        DrawFormattedText(window, 'Missed Response', center_x_q(k)-40, center_y_q(k)-Offset, white);
     end
     [start_FB]=Screen('Flip', window);
 %     trigger(trigger_enc.resp_cue_off);  % trigger to mark end of the response cue
@@ -54,7 +54,7 @@ else
         for k = 1:4
         Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
 %         Screen('FillOval', window, green, fixdotposX(k,:)); % fixation center dot
-        DrawFormattedText(window, 'correct', center_x_q(k)-17, center_y_q(k), white);
+        DrawFormattedText(window, 'correct', center_x_q(k)-17, center_y_q(k)-Offset, white);
         end
         
         [start_FB]=Screen('Flip', window);
@@ -76,7 +76,7 @@ else
         for k = 1:4
         Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]+45);
 %         Screen('FillOval', window, red, fixdotposX(k,:)); % fixation center dot
-        DrawFormattedText(window, 'wrong', center_x_q(k)-17, center_y_q(k), white);
+        DrawFormattedText(window, 'wrong', center_x_q(k)-17, center_y_q(k)-Offset, white);
         end
         
         [start_FB]=Screen('Flip', window);
