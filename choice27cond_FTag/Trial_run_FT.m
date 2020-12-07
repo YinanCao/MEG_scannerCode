@@ -65,13 +65,19 @@ Make_gabor_Ftag_baseM; % create baseM_all{}
 
 trl_tagf = Trial.tagging_freq(trial,:);
 
+if tagging_checkMode
+   Ngabor = 1;
+else
+   Ngabor = 1:3;
+end
+
 % Stimulus presentation
 for vblframe = 1:D2
     destinationRect = [];
     textureIndexTarg = [];
     count = 1;
     for q = 1:4 % quadrant
-        for whichG = 1 % stimuli
+        for whichG = Ngabor % stimuli
             baseM = baseM_all{whichG};
             fColor = xColor3d{trl_tagf(whichG)}(:,:,vblframe); % each row=quad,
             q_dstRect = q_dstRect_all{whichG};
