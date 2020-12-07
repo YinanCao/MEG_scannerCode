@@ -45,7 +45,7 @@ else
 end
 
 Gabor.holder_c              = holder_c;
-Gabor.tr_contrast           = all_contrast;
+% Gabor.tr_contrast           = all_contrast;
 Gabor.freq_deg              = 5; % spatial frequency (cycles/deg)
 Gabor.period                = 1/Gabor.freq_deg*info.pix_per_deg; % in pixels
 Gabor.freq_pix              = 1/Gabor.period;% in pixels
