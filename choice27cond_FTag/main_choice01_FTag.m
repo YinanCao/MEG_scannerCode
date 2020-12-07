@@ -70,7 +70,7 @@ Screen('Preference', 'TextRenderer', 1); % smooth text
 % [window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
 %     [], [],  kPsychNeed32BPCFloat);
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
-    [], 3, []);
+    [], 6, []);
 % PsychImaging('OpenWindow', screenid, 0, [], 32, 2, [], 6, []);
 [center_x, center_y] = RectCenter(windowRect);
 Screen('TextFont', window, 'Helvetica'); % define text font
