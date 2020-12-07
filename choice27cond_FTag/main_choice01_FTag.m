@@ -7,7 +7,7 @@ if ~exist(log_dir, 'dir')
 end
 sca;
 
-multisample_flag = 6;
+multisample_flag = 2;
 debug = 0;
 session_type = 'W';
 tag_f = [63, 78, 85];
@@ -17,7 +17,7 @@ all_angles = [20 45 70]; % Gabor orientations
 
 nTrials = 72;
 
-tagging_checkMode = 1;
+tagging_checkMode = 0;
 
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
