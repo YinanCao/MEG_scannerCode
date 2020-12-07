@@ -15,12 +15,14 @@ all_angles = [20 45 70]; % Gabor orientations
 
 nTrials = 72;
 
+tagging_checkMode = 1;
+
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
 SubName = 'Atrying';
 EL_flag = 0;
 trigger_flag = 1;
-keyLR = {'z','g','r'}; % b,z,g,r for 1,2,3,4
+keyLR = {'z','g','b'}; % b,z,g,r for 1,2,3,4
 
 % L_Hand     = KbName('z'); % 2
 % R_Hand     = KbName('g'); % 3
@@ -52,6 +54,9 @@ holder_c  = [0 1 1];
 
 control_bkg = 0.325;
 
+if tagging_checkMode
+    control_bkg = 0;
+end
 % Define the keys
 KbName('UnifyKeyNames');
 left     = KbName(keyLR{1});

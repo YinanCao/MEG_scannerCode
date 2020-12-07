@@ -76,6 +76,9 @@ for vblframe = 1:D2
             fColor = xColor3d{trl_tagf(whichG)}(:,:,vblframe); % each row=quad,
             q_dstRect = q_dstRect_all{whichG};
             Mx = nan([size(baseM,1),size(baseM,2),3]);
+            if tagging_checkMode
+               baseM = ones(size(baseM));
+            end
             for chan = 1:3
                M = baseM - control_bkg; % bring to zero
                M = M.*fColor(q, chan);
