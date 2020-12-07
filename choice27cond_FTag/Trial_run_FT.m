@@ -71,7 +71,7 @@ for vblframe = 1:D2
     textureIndexTarg = [];
     count = 1;
     for q = 1:4 % quadrant
-        for whichG = 1:3 % stimuli
+        for whichG = 1 % stimuli
             baseM = baseM_all{whichG};
             fColor = xColor3d{trl_tagf(whichG)}(:,:,vblframe); % each row=quad,
             q_dstRect = q_dstRect_all{whichG};
@@ -91,7 +91,9 @@ for vblframe = 1:D2
         end % end stim
     end % end quad
     Screen('DrawTextures', window, textureIndexTarg, [], destinationRect, orientations, [], 1);
-    Screen('FrameOval', window, white, destinationRect, 1);
+    if ~tagging_checkMode
+        Screen('FrameOval', window, white, destinationRect, 1);
+    end
 %     Screen('FrameOval', window, white, destinationRect, Gabor.outlineWidth*info.cuewidth);
     for k = 1:4
         Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
