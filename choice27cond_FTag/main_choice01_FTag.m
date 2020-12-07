@@ -7,12 +7,12 @@ if ~exist(log_dir, 'dir')
 end
 sca;
 
-multisample_flag = 2;
+multisample_flag = 6;
 debug = 0;
 session_type = 'W';
 tag_f = [63, 78, 85];
 info.tagging_freq = tag_f;
-GaborDiameter = 1.8;
+GaborDiameter = 3;
 all_angles = [20 45 70]; % Gabor orientations
 
 nTrials = 72;
@@ -257,7 +257,7 @@ for block = 1:Nblock_all
     Screen('Flip', window);
     WaitSecs(5);
 
-    answer_str = {'T','L','R'};
+    answer_str = {'M','L','R'};
     design_y = design_blk{block};
 
     fake_f = repmat(1:3,1,80);
