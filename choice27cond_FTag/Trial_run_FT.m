@@ -88,7 +88,7 @@ for vblframe = 1:D2
         end % end stim
     end % end quad
     Screen('DrawTextures', window, textureIndexTarg, [], destinationRect, orientations, [], 1);
-%     Screen('FrameOval', window, white, destinationRect, .1);
+    Screen('FrameOval', window, black, destinationRect, 1);
 %     Screen('FrameOval', window, white, destinationRect, Gabor.outlineWidth*info.cuewidth);
     for k = 1:4
         Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
