@@ -7,6 +7,7 @@ if ~exist(log_dir, 'dir')
 end
 sca;
 
+multisample_flag = [];
 debug = 0;
 session_type = 'W';
 tag_f = [63, 78, 85];
@@ -70,7 +71,7 @@ Screen('Preference', 'TextRenderer', 1); % smooth text
 % [window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
 %     [], [],  kPsychNeed32BPCFloat);
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
-    [], [], []);
+    [], multisample_flag, []);
 % PsychImaging('OpenWindow', screenid, 0, [], 32, 2, [], 6, []);
 [center_x, center_y] = RectCenter(windowRect);
 Screen('TextFont', window, 'Helvetica'); % define text font
@@ -259,6 +260,7 @@ for block = 1:Nblock_all
     answer_str = {'T','L','R'};
     design_y = design_blk{block};
 
+    fake_f = repmat(1:3,1,80);
     for trial = 1:nTrials % nTrials was defined in Set_Vars.m
 
         % stimulus angle:
@@ -273,7 +275,9 @@ for block = 1:Nblock_all
         Trial.true_answer(trial) = answer_str{max_gabor};
 
         Trial.tagging_freq(trial,:) = randperm(3);
-
+        if tagging_checkMode
+            Trial.tagging_freq(trial,1) = fake_f(trial);
+        end
     end
 
     correctness = {'error','correct','missed'};
