@@ -137,7 +137,7 @@ sess_count = 1;
 
 for block = 1:Nblock_all
 
-    disp(['starting Session ',num2str(session),' Block ',num2str(block)])
+    disp(['Block ',num2str(block)])
 
     HideCursor;
     Screen('TextSize', window, 22)
