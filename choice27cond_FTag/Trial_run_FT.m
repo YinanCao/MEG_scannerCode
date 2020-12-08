@@ -97,7 +97,7 @@ for vblframe = 1:D2
     end % end quad
     Screen('DrawTextures', window, textureIndexTarg, [], destinationRect, orientations, [], 1);
     if ~tagging_checkMode
-        Screen('FrameOval', window, white, destinationRect, 1);
+        Screen('FrameOval', window, 0.75, destinationRect, 1);
     end
 %     Screen('FrameOval', window, white, destinationRect, Gabor.outlineWidth*info.cuewidth);
     for k = 1:4

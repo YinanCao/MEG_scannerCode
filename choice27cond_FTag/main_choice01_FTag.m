@@ -12,7 +12,7 @@ debug = 0;
 session_type = 'W';
 tag_f = [63, 78, 85];
 info.tagging_freq = tag_f;
-GaborDiameter = 3;
+GaborDiameter = 1.8;
 all_angles = [20 45 70]; % Gabor orientations
 
 nTrials = 72;
