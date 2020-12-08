@@ -25,7 +25,7 @@ Block_No=1;
 nTrials=80;
 EL_flag=0;
 
-multisample_flag = 6;
+multisample_flag = [];
 Screen('Preference', 'SkipSyncTests', 0);
 %%
 %-----------------------------------
@@ -230,7 +230,7 @@ JND.base_value       = Trial.Gabor_all_contrast_base(1);
 %     m=0;
 % end
 
-
+% save this varr: Quest.Mean_JND
 
 % Close and clear all
 Screen('CloseAll');
