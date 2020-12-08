@@ -30,8 +30,6 @@ if trial == 1
     end
 
 end
-%%%%%%%%%%%%%
-%%%%%%%%%%%%%
 orientations = [];
 count = 1;
 for q = 1:4
@@ -64,12 +62,6 @@ vbl = Screen('Flip', window, start_fix + (fixFrames-0.5)*ifi);
 Make_gabor_Ftag_baseM; % create baseM_all{}
 
 trl_tagf = Trial.tagging_freq(trial,:);
-
-% if tagging_checkMode
-%    Ngabor = 1;
-% else
-%    Ngabor = 1:3;
-% end
 
 % Stimulus presentation
 for vblframe = 1:D2
@@ -130,7 +122,7 @@ for k = 1:4
     Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
 end
 vbl = Screen('Flip', window, vbl + 0.5 * ifi); 
-trigger(trigger_enc.stim_off);  % trigger to mark start of the stim
+trigger(trigger_enc.stim_off);
 if info.ET
     Eyelink('message', num2str(trigger_enc.stim_off));
 end
@@ -151,7 +143,7 @@ start = respOn;
 flush_kbqueues(info.kbqdev);
 [keyIsDown, secs, press_key, deltaSecs] = KbCheck();
 endrt = GetSecs;
-while ( press_key(left)==0  && press_key(right)==0 && GetSecs-start<Trial.RCD)
+while ( press_key(left)==0  && press_key(right)==0 && press_key(middle)==0 && GetSecs-start<Trial.RCD)
     [keyIsDown, secs, press_key, deltaSecs] = KbCheck();
     endrt = secs;
 end

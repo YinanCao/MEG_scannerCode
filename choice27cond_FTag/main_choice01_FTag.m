@@ -51,7 +51,7 @@ grey      = white / 2;
 green     = [0,200,0];
 red       = [200,0,0];
 blue      = [0,0,200];
-dark_grey = black; %white / 3;
+dark_grey = black;
 holder_c  = [0 1 1];
 
 control_bkg = 0.325;
@@ -64,12 +64,10 @@ KbName('UnifyKeyNames');
 left     = KbName(keyLR{1});
 right    = KbName(keyLR{2});
 middle   = KbName(keyLR{3});
-% left foot: 1!
-% right foot: '2@'
+
+%%
 smallWindow4Debug  = [0, 0, 1920, 1080];
 Screen('Preference', 'TextRenderer', 1); % smooth text
-% [window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
-%     [], [],  kPsychNeed32BPCFloat);
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
     [], multisample_flag, []);
 % PsychImaging('OpenWindow', screenid, 0, [], 32, 2, [], 6, []);
@@ -86,6 +84,7 @@ topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 
 Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+%%
 
 % Set needed variables1
 Set_Vars_FT;
@@ -134,6 +133,7 @@ for q = 1:4
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
 
 mask_str = 'nomask';
 
