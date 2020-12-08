@@ -29,10 +29,8 @@ idx = inpolygon(y(:),x(:),xc,yc);
 %%
 contrast = Trial.contrast(trial,:);
 
-% contrast(contrast>1) = 1;
-% contrast(contrast<0) = 1;
-
-contrast = contrast*0;
+contrast(contrast>1) = 1;
+contrast(contrast<0.5) = 0.5;
 
 baseM_all = cell(0);
 for whichG = 1:Gabor.numGabors
