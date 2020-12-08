@@ -54,6 +54,8 @@ blue      = [0,0,200];
 dark_grey = black;
 holder_c  = [0 1 1];
 
+Gabor.outlineColor = 0.75*ones(1,3);
+
 control_bkg = 0.325;
 
 if tagging_checkMode
