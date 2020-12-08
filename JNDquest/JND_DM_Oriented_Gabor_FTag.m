@@ -22,7 +22,7 @@ session_type='W';
 session_No=1;
 Block_type='f';
 Block_No=1;
-nTrials=20;
+nTrials=80;
 EL_flag=0;
 
 multisample_flag = 6;
