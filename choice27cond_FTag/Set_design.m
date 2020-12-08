@@ -1,8 +1,8 @@
 % 8 conditions
 B   = 0.5;
-jnd = 0.06;
+jnd = 0.07;
 A   = [-2, -1, 1, 2]*jnd + B;
-D   = [0.15, B-3*jnd];
+D   = [0.15, B-2.5*jnd];
 CC  = [];
 for d = 1:2
     for a = 1:4

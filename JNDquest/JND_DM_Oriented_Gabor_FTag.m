@@ -10,8 +10,9 @@ end
 
 tag_f = [63, 78, 85];
 info.tagging_freq = tag_f;
-GaborDiameter = 2;
+GaborDiameter = 1.8;
 control_bkg = 0.325;
+all_angles = [20 45 70]; % Gabor orientations
 
 SubName='xx';
 SubNo=1;
@@ -25,7 +26,7 @@ Block_No=1;
 nTrials=80;
 EL_flag=0;
 
-multisample_flag = [];
+multisample_flag = 6;
 Screen('Preference', 'SkipSyncTests', 0);
 %%
 %-----------------------------------
@@ -42,7 +43,8 @@ screenNumber = max(Screen('Screens'));
 white     = WhiteIndex(screenNumber);
 black     = BlackIndex(screenNumber);
 grey      = white / 2;
-dark_grey = black;
+dark_grey = 0.1;
+Gabor.outlineColor = 0.75*ones(1,3);
 
 % Define the keys
 KbName     ('UnifyKeyNames');
@@ -231,6 +233,10 @@ JND.base_value       = Trial.Gabor_all_contrast_base(1);
 % end
 
 % save this varr: Quest.Mean_JND
+
+estimated_jnd = [Quest.Quantile_JND]
+
+disp(['JND = ', num2str(estimated_jnd)])
 
 % Close and clear all
 Screen('CloseAll');

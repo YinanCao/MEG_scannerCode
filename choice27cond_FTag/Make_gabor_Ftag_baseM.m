@@ -28,14 +28,26 @@ yc = py + patchHalfSize*sin(th);
 idx = inpolygon(y(:),x(:),xc,yc);
 %%
 contrast = Trial.contrast(trial,:);
+
+contrast(contrast>1) = 1;
+% baseM_all = cell(0);
+% for whichG = 1:3
+%     peak = (1 + contrast(whichG))*0.5;
+%     amp = peak - control_bkg;
+%     M = gabor*amp + control_bkg;
+%     M(M < control_bkg) = control_bkg;
+%     % crop outside the circle
+%     M(~idx) = control_bkg;
+%     baseM_all{whichG} = M;
+% end
+
+
 baseM_all = cell(0);
-for whichG = 1:3
-    peak = (1 + contrast(whichG))*0.5;
-    amp = peak - control_bkg;
-    M = gabor*amp + control_bkg;
+for whichG = 1:Gabor.numGabors
+    amplitude = (1-control_bkg)*contrast(whichG);
+    M = gabor*amplitude + control_bkg;
     M(M < control_bkg) = control_bkg;
     % crop outside the circle
     M(~idx) = control_bkg;
     baseM_all{whichG} = M;
 end
-

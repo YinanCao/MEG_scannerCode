@@ -21,10 +21,10 @@ tagging_checkMode = 0;
 
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'Atrying';
+SubName = 'MTM';
 EL_flag = 0;
 trigger_flag = 1;
-keyLR = {'z','g','b'}; % b,z,g,r for 1,2,3,4
+keyLR = {'z','g','2@'}; % b,z,g,r for 1,2,3,4
 
 % L_Hand     = KbName('z'); % 2
 % R_Hand     = KbName('g'); % 3
@@ -51,12 +51,12 @@ grey      = white / 2;
 green     = [0,200,0];
 red       = [200,0,0];
 blue      = [0,0,200];
-dark_grey = black;
+dark_grey = 0.1;
 holder_c  = [0 1 1];
 
 Gabor.outlineColor = 0.75*ones(1,3);
 
-control_bkg = 0.325;
+control_bkg = 0.3;
 
 if tagging_checkMode
     control_bkg = 0;
@@ -147,7 +147,7 @@ Nblock_all = length(design_blk);
 % >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> % 
 sess_count = 1;
 
-for block = 1:Nblock_all
+for block = 1:9 %Nblock_all
 
     disp(['Block ',num2str(block)])
 
@@ -228,7 +228,7 @@ for block = 1:Nblock_all
 
     c = clock;
     sname = sprintf('%s/%s_%s_%s_%s_block_%d_%02d%02d-%02d%02d.mat',...
-       log_dir,SubName,'choice27FT',Block_type,mask_str,block,c(3),c(2),c(4),c(5));
+       log_dir,SubName,'choice27FTnew',Block_type,mask_str,block,c(3),c(2),c(4),c(5));
 
     % reset
     Trial.orientation  = [];

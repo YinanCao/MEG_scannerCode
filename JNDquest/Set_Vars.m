@@ -56,8 +56,8 @@ elseif Block_type == 'f'
     Gabor.gc_from_sc_deg = 2.2;
     Gabor.gc_from_sc_pix = round(info.pix_per_deg*Gabor.gc_from_sc_deg);
 end
-Gabor.X_Shift_deg        = m_round(((sqrt(3)/2) * Gabor.gc_from_sc_deg),1);
-Gabor.Y_Shift_deg        = m_round(((1/2) * Gabor.gc_from_sc_deg),1);
+Gabor.X_Shift_deg        = round(((sqrt(3)/2) * Gabor.gc_from_sc_deg));
+Gabor.Y_Shift_deg        = round(((1/2) * Gabor.gc_from_sc_deg));
 Gabor.X_Shift_pix        = round(info.pix_per_deg * Gabor.X_Shift_deg);
 Gabor.Y_Shift_pix        = round(info.pix_per_deg * Gabor.Y_Shift_deg);
 Gabor.Xpos               = [center_x-Gabor.X_Shift_pix,center_x+Gabor.X_Shift_pix];
@@ -68,9 +68,9 @@ Gabor.size_fluctuation   = round(info.pix_per_deg*0);%0 pix
 %   Position
 Trial.all_pos                 = ['L','R'];
 Trial.Gabor_position          = Shuffle(repmat(Trial.all_pos,[1 nTrials/2]));
-Trial.Gabor_orientation_type  = Shuffle(repmat(['R','L'], [1 nTrials/2]));% 'R':clockwise 'L':Couter-clockwis
-Trial.Gabor_orientation_R     = [10 45 80];
-Trial.Gabor_orientation_L     = [100 135 170];
+Trial.Gabor_orientation_type  = Shuffle(repmat(['R','R'], [1 nTrials/2]));% 'R':clockwise 'L':Couter-clockwis
+Trial.Gabor_orientation_R     = all_angles;
+%Trial.Gabor_orientation_L     = [100 135 170];
 Trial.Gabor_all_contrast_base = [0.5 0.5];
 Trial.num_quests              = 2;
 Trial.Which_quest             = Shuffle(repmat([1:Trial.num_quests],[1 nTrials/Trial.num_quests]));
@@ -85,16 +85,17 @@ Trial.Gabor_contrast          = Trial.Gabor_all_contrast_base(Trial.Which_quest)
 pd                            = makedist('Exponential','mu',0.75);
 t                             = truncate(pd,0.5,1);
 Trial.BRD                     = random(t,[1,nTrials]);% Being Ready duration
-Trial.SD                      = 0.75;% Stimulus duration
+Trial.SD                      = 1;% Stimulus duration
 Trial.StRCD                   = 0.15; % Stimulus offset to Response Cue onset duration
 Trial.RCD                     = 1; % Response Cue duration
 Trial.FBD                     = 0.25;% FeedBack duration
 Trial.MD                      = 0.2 + (0.1*rand(nTrials,3));%mask duration
-Trial.TimeWaitafterFB      = 0.6;
+Trial.TimeWaitafterFB         = 0.6;
 
 for trial=1:nTrials
     if Trial.Gabor_orientation_type(trial) =='R'
-        which_o = randperm(3);
+        %which_o = randperm(3);
+        which_o = randi(3,1,3);
             Trial.orientation (trial,:) = Trial.Gabor_orientation_R(which_o(1:2));
     else
         which_o = randperm(3);
@@ -140,8 +141,5 @@ allCoords                     = [xCoords; yCoords];
 lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%6 pix
 % fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
 
-
-
-
-
-fix_rect                      = [-7 -2 7 2];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
+fix_rect                      = [-5 -1 5 1];
+%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];

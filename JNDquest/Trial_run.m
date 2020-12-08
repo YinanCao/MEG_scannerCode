@@ -91,6 +91,8 @@ eval(['Quest.JND_log10contrast' w_q '(q_counter' w_q '-1)=Trial.JND_log10contras
 
 %%
 Make_gabor_Ftag_baseM; % create baseM_all{}
+% choose 2 arbi f for the 2 stim
+tag_f_thistrl = randi(length(tag_f),1,2);
 % Stimulus presentation
 for vblframe = 1:D2
     destinationRect = [];
@@ -99,7 +101,7 @@ for vblframe = 1:D2
     for q = 1:4 % quadrant
         for whichG = 1:2 % stimuli
             baseM = baseM_all{whichG};
-            fColor = xColor3d{randperm(length(tag_f),1)}(:,:,vblframe); % each row=quad,
+            fColor = xColor3d{tag_f_thistrl(whichG)}(:,:,vblframe); % each row=quad,
             q_dstRect = q_dstRect_all{whichG};
             Mx = nan([size(baseM,1),size(baseM,2),3]);
             for chan = 1:3
@@ -114,7 +116,7 @@ for vblframe = 1:D2
         end % end stim
     end % end quad
     Screen('DrawTextures', window, textureIndexTarg, [], destinationRect, orientations, [], 1);
-    Screen('FrameOval', window, white, destinationRect, 1);
+    Screen('FrameOval', window, Gabor.outlineColor, destinationRect, 1);
 
     for k = 1:4
         Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
@@ -124,7 +126,7 @@ for vblframe = 1:D2
     Screen('Close', textureIndexTarg);
     
     if vblframe == 1
-        trigger(trigger_enc.stim_on);  % trigger to mark start of the stim
+        % trigger(trigger_enc.stim_on);  % trigger to mark start of the stim
         stimOnset = vbl;
     end
 

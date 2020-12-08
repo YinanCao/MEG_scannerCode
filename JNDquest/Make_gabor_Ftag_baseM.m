@@ -32,14 +32,47 @@ contrast = Trial.contrast(trial,:);
 contrast(contrast>1) = 1;
 contrast(contrast<0.5) = 0.5;
 
+% baseM_all = cell(0);
+% for whichG = 1:Gabor.numGabors
+%     peak = (1 + contrast(whichG))*0.5;
+%     amp = peak - control_bkg;
+%     M = gabor*amp + control_bkg;
+%     M(M < control_bkg) = control_bkg;
+%     % crop outside the circle
+%     M(~idx) = control_bkg;
+%     baseM_all{whichG} = M;
+% end
+
 baseM_all = cell(0);
 for whichG = 1:Gabor.numGabors
-    peak = (1 + contrast(whichG))*0.5;
-    amp = peak - control_bkg;
-    M = gabor*amp + control_bkg;
+    amplitude = (1-control_bkg)*contrast(whichG);
+    M = gabor*amplitude + control_bkg;
     M(M < control_bkg) = control_bkg;
     % crop outside the circle
     M(~idx) = control_bkg;
     baseM_all{whichG} = M;
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
