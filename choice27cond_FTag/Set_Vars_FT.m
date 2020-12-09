@@ -111,7 +111,7 @@ Trial.ProbD                = 0.5;
 Trial.StRCD                = 0.3; % probe offset to response onset
 Trial.RCD                  = 1.5; % Response cue duration
 Trial.FBD                  = 0.25;% FeedBack duration
-Trial.TimeWaitafterFB      = 0.6;
+Trial.TimeWaitafterFB      = 0.3;
 
 if Trial.Triangle_dir == 'U'
     x                  = [-Gabor.X_Shift_pix,0,Gabor.X_Shift_pix];

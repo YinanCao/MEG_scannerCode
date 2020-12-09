@@ -1,6 +1,6 @@
 % 8 conditions
 B   = 0.5;
-jnd = 0.07;
+jnd = 0.05;
 A   = [-2, -1, 1, 2]*jnd + B;
 D   = [0.15, B-2.5*jnd];
 CC  = [];

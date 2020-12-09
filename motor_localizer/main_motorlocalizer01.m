@@ -17,7 +17,7 @@ cd /home/usera/Documents/MEG_scannerCode/motor_localizer/
 smallWindow4Debug  = [0, 0, 1920, 1080];
 %smallWindow4Debug  = [1921, 0, 1920*2, 1080];
 Screen('Preference', 'SkipSyncTests', 0);
-nTrials = 20;
+nTrials = 30;
 blockRep = 1;
 
 EL_flag = 0;
@@ -130,8 +130,8 @@ xCoords                       = [-fixCrossDimPix fixCrossDimPix 0 0];
 yCoords                       = [0 0 -fixCrossDimPix fixCrossDimPix];
 allCoords                     = [xCoords; yCoords];
 lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%6 pix
-% fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
-fix_rect                      = [-5 -1 5 1];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
+fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
+%fix_rect                      = [-5 -1 5 1];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
 
 
 Setup_keys;
@@ -148,7 +148,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for session = 1:3
+for session = 1:4
     
     % time counting starts
     tic;
@@ -219,7 +219,11 @@ for session = 1:3
     % start experiment:
     for block = 1:nBlock
 
+block_all = block_all(randperm(nBlock),:);
+
+
         DrawFormattedText(window, block_all{block,2},'center', 'center', white);
+DrawFormattedText(window, 'press the corresponding key to start','center', center_y+100, white);
         Screen('Flip', window);
 
         motor_code = [];

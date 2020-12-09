@@ -11,10 +11,12 @@
 % DrawFormattedText(window, ['Plus with a Red dot: Wrong Response'], 'center', center_y+125,[1 0 0]);
 
 % let's do
-DrawFormattedText(window, 'Experiment will begin, please do not move','center', center_y-100, white);
+DrawFormattedText(window, 'Experiment will begin, judge the orientation of the last Gabor in a sequence','center', center_y-100, white);
 
-DrawFormattedText(window, 'key 1: CCW',  center_x-190, center_y-50, green);
-DrawFormattedText(window, 'key 2: CW', center_x+90, center_y-50, green);
+DrawFormattedText(window, 'key left: CCW',  center_x-190, center_y-50, green);
+DrawFormattedText(window, 'key right: CW', center_x+90, center_y-50, green);
+
+DrawFormattedText(window, 'Maintain fixation! No peeking:)',  center_x-190, center_y+50, green);
 
 % DrawFormattedText(window, 'CCW', center_x-270, 'center', black);
 % DrawFormattedText(window, 'CW', center_x+40, 'center', white);

@@ -71,9 +71,9 @@ for sample = 1:nsample
                        if tagging_checkMode
                            baseM = ones(size(baseM));
                        end
-                       M = baseM - grey; % bring to zero
+                       M = baseM - control_bkg; % bring to zero
                        M = M.*fColor(q, chan);
-                       M = M + grey;
+                       M = M + control_bkg;
                        Mx(:,:,chan) = M;
                     end
                     textureIndexTarg(q) = Screen('MakeTexture', window, Mx);
@@ -85,7 +85,7 @@ for sample = 1:nsample
             % Screen('DrawTexture', window, textureIndexTarg(k), [], destinationRect(:,k), orientation, [], 1);
             if ~tagging_checkMode
             Rotated_fixation(window, fix_rect, center_x_q(k), center_y_q(k), dark_grey, [0,90]);
-            Screen('FrameOval', window, white, destinationRect(:,k), Gabor.outlineWidth*info.cuewidth);
+            Screen('FrameOval', window, Gabor.outlineColor, destinationRect(:,k), 1);
             end
             end
         else
