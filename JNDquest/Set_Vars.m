@@ -85,12 +85,12 @@ Trial.Gabor_contrast          = Trial.Gabor_all_contrast_base(Trial.Which_quest)
 pd                            = makedist('Exponential','mu',0.75);
 t                             = truncate(pd,0.5,1);
 Trial.BRD                     = random(t,[1,nTrials]);% Being Ready duration
-Trial.SD                      = 1;% Stimulus duration
+Trial.SD                      = 1.5;% Stimulus duration
 Trial.StRCD                   = 0.15; % Stimulus offset to Response Cue onset duration
 Trial.RCD                     = 1; % Response Cue duration
 Trial.FBD                     = 0.25;% FeedBack duration
 Trial.MD                      = 0.2 + (0.1*rand(nTrials,3));%mask duration
-Trial.TimeWaitafterFB         = 0.6;
+Trial.TimeWaitafterFB         = 0.3;
 
 for trial=1:nTrials
     if Trial.Gabor_orientation_type(trial) =='R'

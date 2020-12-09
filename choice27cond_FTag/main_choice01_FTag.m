@@ -21,7 +21,7 @@ tagging_checkMode = 0;
 
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'MTM';
+SubName = 'JC';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g','2@'}; % b,z,g,r for 1,2,3,4
@@ -147,7 +147,7 @@ Nblock_all = length(design_blk);
 % >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> % 
 sess_count = 1;
 
-for block = 1:9 %Nblock_all
+for block = 1:12 %Nblock_all
 
     disp(['Block ',num2str(block)])
 

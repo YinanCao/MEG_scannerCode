@@ -1,5 +1,5 @@
 clear; clc; close all;
-SubName = 'YC';
+SubName = 'JC';
 debug = 0;
 debugkey = 0;
 datadir = '/home/usera/Documents/';
@@ -47,13 +47,15 @@ block_type = {1,'Left Hand', L_Hand,L_Hand
               2,'Right Hand',R_Hand,R_Hand
               3,'Left Foot', L_Foot,L_Foot
               4,'Right Foot',R_Foot,R_Foot
-              5,'Two hands',L_Hand,R_Hand
-              6,'Two feet',L_Foot,R_Foot
-              7,'Left Hand + Left Foot', L_Hand,L_Foot
-              8,'Right Hand + Right Foot', R_Hand,R_Foot
-              9,'Left Hand + Right Foot',L_Hand,R_Foot
-             10,'Right Hand + Left Foot',R_Hand,L_Foot
+%               5,'Two hands',L_Hand,R_Hand
+%               6,'Two feet',L_Foot,R_Foot
+%               7,'Left Hand + Left Foot', L_Hand,L_Foot
+%               8,'Right Hand + Right Foot', R_Hand,R_Foot
+%               9,'Left Hand + Right Foot',L_Hand,R_Foot
+%              10,'Right Hand + Left Foot',R_Hand,L_Foot
              };
+         
+         
 Ntype = size(block_type,1);
 
 block_all = repmat(block_type,blockRep,1);
@@ -71,7 +73,7 @@ grey      = white / 2;
 green     = [0,200,0];
 red       = [200,0,0];
 blue      = [0,0,200];
-dark_grey = white / 4;
+dark_grey = 0.1;
 holder_c  = [0 1 1];
 
 Screen('Preference', 'TextRenderer', 1); % smooth text
@@ -79,7 +81,8 @@ Screen('Preference', 'TextRenderer', 1); % smooth text
 if debug
     smallWindow4Debug  = [0 0 1920 1080]/1.2;
 end
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, smallWindow4Debug, 32, 2,...
+control_bkg = 0.3;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
     [], [],  kPsychNeed32BPCFloat);
 [center_x, center_y] = RectCenter(windowRect);
 Screen('TextFont', window, 'Helvetica'); % define text font
@@ -106,9 +109,11 @@ info.SubName       = SubName;
 info.ET            = EL_flag;
 info.do_trigger    = trigger_flag;
 info.kb_setup      = 'MEG';
-info.mon_width_cm  = 45;    % width of monitor (cm)
-info.mon_height_cm = 26.5;  % height of monitor (cm)
-info.view_dist_cm  = 50;    % viewing distance (cm)
+
+info.mon_width_cm  = 46;% width of monitor (cm)
+info.mon_height_cm = 27;% height of monitor (cm)
+info.view_dist_cm  = 53;% viewing distance (cm)
+
 info.pix_per_deg   = info.window_rect(3) *(1 ./ (2 * atan2(info.mon_width_cm / 2, info.view_dist_cm))) * pi/180;
 
 info.width = info.mon_width_cm;
@@ -125,7 +130,9 @@ xCoords                       = [-fixCrossDimPix fixCrossDimPix 0 0];
 yCoords                       = [0 0 -fixCrossDimPix fixCrossDimPix];
 allCoords                     = [xCoords; yCoords];
 lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%6 pix
-fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
+% fix_rect                      = [-fixCrossDimPix -lineWidthPix./2 fixCrossDimPix lineWidthPix./2];
+fix_rect                      = [-5 -1 5 1];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
+
 
 Setup_keys;
 % rng('shuffle');

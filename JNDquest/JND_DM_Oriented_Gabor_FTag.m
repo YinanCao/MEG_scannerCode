@@ -11,10 +11,10 @@ end
 tag_f = [63, 78, 85];
 info.tagging_freq = tag_f;
 GaborDiameter = 1.8;
-control_bkg = 0.325;
+control_bkg = 0.3;
 all_angles = [20 45 70]; % Gabor orientations
 
-SubName='xx';
+SubName='JC';
 SubNo=1;
 Age=1;
 Gender='F';
@@ -23,7 +23,7 @@ session_type='W';
 session_No=1;
 Block_type='f';
 Block_No=1;
-nTrials=80;
+nTrials=100;
 EL_flag=0;
 
 multisample_flag = 6;

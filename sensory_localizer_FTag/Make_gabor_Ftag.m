@@ -37,7 +37,7 @@ for whichG = thisloc % top, left, right
         q_dstRect(q,:) = [x1,y1,x4,y4];
     end
     
-    valleyC = BorW;
+%     valleyC = BorW;
     c = all_contrast(thiscontrast); % top, left, right
    
     gauss = exp(-(x.^2/(2*SDofGaussX^2)+y.^2/(2*SDofGaussY(whichG)^2)));
@@ -45,23 +45,35 @@ for whichG = thisloc % top, left, right
     t = 0;
     gabor = sin(2*pi*f*(y*sin(t) + x*cos(t))).*gauss;
     
-    M = grey*(1 + gabor*valleyC*c); % shift phase if valley = white
-    % to be consistent with the phase when valley = black (default)
-    if valleyC > 0
-        M(M > grey) = grey;
-    else
-        M(M < grey) = grey;
-    end
-    % crop outside the circle
     
-    px = 0;
-    py = 0;
-    th = linspace(0, 2*pi);
-    xc = px + patchHalfSize*cos(th);
-    yc = py + patchHalfSize*sin(th);
-    idx = inpolygon(y(:),x(:),xc,yc);
-    M(~idx) = grey;
+    amplitude = (1-control_bkg)*c;
+    M = gabor*amplitude + control_bkg;
+    M(M < control_bkg) = control_bkg;
+    % crop outside the circle
+    M(~idx) = control_bkg;
     baseM = M;
+    
+    
+    
+    
+    
+%     M = grey*(1 + gabor*valleyC*c); % shift phase if valley = white
+%     % to be consistent with the phase when valley = black (default)
+%     if valleyC > 0
+%         M(M > grey) = grey;
+%     else
+%         M(M < grey) = grey;
+%     end
+%     % crop outside the circle
+%     
+%     px = 0;
+%     py = 0;
+%     th = linspace(0, 2*pi);
+%     xc = px + patchHalfSize*cos(th);
+%     yc = py + patchHalfSize*sin(th);
+%     idx = inpolygon(y(:),x(:),xc,yc);
+%     M(~idx) = grey;
+%     baseM = M;
 end
 
 

@@ -7,27 +7,31 @@ smallWindow4Debug = [0, 0, 1920, 1080];
 datadir = '/home/usera/Documents/';
 Screen('Preference', 'SkipSyncTests', 0);
 SubNo = 1;
-SubName = 'tmp2';
+SubName = 'JC';
 EL_flag = 0;
 trigger_flag = 1;
 keyLR = {'z','g'};
 
+multisample_flag = 6;
+
 tag_f = [63, 78, 85];
-GaborDiameter = 3;
+GaborDiameter = 1.8;
 % tag_f = [91, 103, 135];
-tagging_checkMode = 1;
+tagging_checkMode = 0;
 info.tag_f = tag_f;
 
 block_rep = 1;
 loc_all = repmat(1:3,1,block_rep);
 loc_all = loc_all(randperm(length(loc_all)));
 
-all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
+% all_angles = [-67.5 -45 -22.5 22.5  45  67.5];
+all_angles = [-70 -45 -20 20  45  70];
 % all_contrast = [0.2,0.5,0.8];
 
-all_contrast = [0.2,0.5,1];
+% all_contrast = [0.2,0.5,1];
+all_contrast = [1,1,1];
 
-session_type = 'B';
+session_type = 'W';
 
 Block_type = 'f';
 Age = 24;
@@ -60,8 +64,13 @@ grey      = white / 2;
 green     = [0,200,0];
 red       = [200,0,0];
 blue      = [0,0,200];
-dark_grey = white / 4;
-holder_c  = [0 1 1];
+% dark_grey = white / 4;
+% holder_c  = [0 1 1];
+
+dark_grey = 0.1;
+
+
+Gabor.outlineColor = 0.75*ones(1,3);
 
 % Define the keys
 KbName('UnifyKeyNames');
@@ -78,16 +87,21 @@ right    = KbName(keyLR{2});
 
 Screen('Preference', 'TextRenderer', 1); % smooth text
 
-if debug
-    smallWindow4Debug  = [0 0 1920 1080]/1.2;
-end
+% if debug
+%     smallWindow4Debug  = [0 0 1920 1080]/1.2;
+% end
 
-bkgcolor = grey;
+control_bkg = 0.3;
 
-if tagging_checkMode
-    bkgcolor = black;
-end
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, bkgcolor, smallWindow4Debug);
+% bkgcolor = control_bkg;
+% 
+% if tagging_checkMode
+%     bkgcolor = black;
+% end
+% [window, windowRect] = PsychImaging('OpenWindow', screenNumber, bkgcolor, smallWindow4Debug);
+
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, control_bkg, smallWindow4Debug, 32, 2,...
+    [], multisample_flag, []);
 
 % [window, windowRect] = Screen('OpenWindow', screenNumber, [white/2 white/2 white/2], smallWindow4Debug);
 
@@ -246,7 +260,7 @@ for session = 1:3
     
     % change projector mode, only here once!
     tag_setup_projector('set', 1);
-    pause(3)
+    pause(5)
     
 for block = 1:length(loc_all)
     
@@ -363,7 +377,7 @@ toc;
     tag_setup_projector('reset', 1);
     ShowCursor;
     Screen('TextSize', window, 22)
-    DrawFormattedText(window, 'This block is finished! Thanks!', 'center', 'center', WhiteIndex(window));
+    DrawFormattedText(window, 'This block has been finished! Thanks!', 'center', 'center', WhiteIndex(window));
     Screen('Flip', window);
     TTL = 0; % Get the TTL from the scanner
     while TTL==0

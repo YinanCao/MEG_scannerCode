@@ -98,7 +98,7 @@ t                          = truncate(pd,0.6,1.5);
 Trial.BRD                  = random(t,[1,nTrials]);% Being Ready duration
 Trial.cueD                 = 0.05; % cue duration
 Trial.cue2StimD            = 0.1;
-Trial.SD                   = 1;% Stimulus duration
+Trial.SD                   = 1.5;% Stimulus duration
 Trial.ISI                  = 0.4;
 Trial.s2PD                 = 0.5;
 Trial.ProbD                = 0.5;
@@ -142,5 +142,6 @@ xCoords                       = [-fixCrossDimPix fixCrossDimPix 0 0];
 yCoords                       = [0 0 -fixCrossDimPix fixCrossDimPix];
 allCoords                     = [xCoords; yCoords];
 lineWidthPix                  = round(info.pix_per_deg*Gabor.Fixation_dot_deg);%6 pix
-fix_rect                      = [-7 -2 7 2];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
+% fix_rect                      = [-7 -2 7 2];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
 
+fix_rect                      = [-5 -1 5 1];%[ceil([-fixCrossDimPix -lineWidthPix/2]./2) floor([fixCrossDimPix lineWidthPix/2]./2)];
