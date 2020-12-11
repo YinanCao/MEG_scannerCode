@@ -19,6 +19,7 @@ end
 fprintf('Running experiment on a ''%s'' tracker.\n', vs);
 
 el = EyelinkInitDefaults(window);
+el.backgroundcolour = ...
 
 % % SEND SCREEN SIZE TO EL SO THAT VISUAL ANGLE MEASUREMENTS ARE CORRECT
 rv = []; % collect return values from eyetracker commands
