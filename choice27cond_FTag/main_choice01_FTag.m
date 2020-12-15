@@ -80,7 +80,7 @@ info.window_rect  = windowRect;
 info.frameDur     = Screen('GetFlipInterval', window); %duration of one frame
 info.frameRate    = Screen('NominalFrameRate', window);
 ifi = info.frameDur;
-2
+
 % Maximum priority level
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
@@ -91,7 +91,7 @@ Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % Set needed variables1
 Set_Vars_FT;
 Setup_keys;
-2
+
 tag_setup_projector('open', 1);
 tag_setup_projector('reset', 1);
 

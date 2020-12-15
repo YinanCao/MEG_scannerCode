@@ -4,7 +4,6 @@ smallWindow4Debug = [0, 0, 1920, 1080]/1.2;
 Screen('Preference', 'SkipSyncTests', 0);
 sca;
 datadir = '/home/usera/Documents/';
-datadir = '/Users/yinancaojake/'
 log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
@@ -21,13 +20,15 @@ white     = WhiteIndex(screenNumber);
 black     = BlackIndex(screenNumber);
 grey      = white / 2;
 
-info.do_trigger = 0;
+info.do_trigger = 1;
 
 % Define the keys
-keyLR = {'z','g','2@'}; % b,z,g,r for 1,2,3,4
+keyLR = {'z','g','b','r'}; % b,z,g,r for 1,2,3,4
 KbName('UnifyKeyNames');
-% left     = KbName(keyLR{1});
-% right    = KbName(keyLR{2});
+% A    = KbName(keyLR{1});
+% B    = KbName(keyLR{2});
+% C    = KbName(keyLR{3});
+% D    = KbName(keyLR{4});
 % left foot: 1!
 % right foot: '2@'
 
@@ -64,10 +65,12 @@ else
     addpath faketrigger/
 end
 
-
 %---------------
 % Start the task
 %---------------
+tag_setup_projector('open', 1);
+tag_setup_projector('reset', 1);
+
 DrawFormattedText(window, 'Ready? Press [SPACE] to start!', 'center', center_y + 175, white);
 Screen('Flip', window);
 TTL = 0; % Get the TTL from the scanner
@@ -84,8 +87,10 @@ end
 pause(1);
 Screen('Flip', window);
 
+HideCursor;
+
 contrast  = linspace(0.15, 1, 5);
-gaborsize = linspace(1.8, 4, 3);
+gaborsize = linspace(1.8, 4.2, 4);
 tag_f     = [63, 78, 85, 91, 103, 135];
 parm = [];
 cond_i = 1;
@@ -97,9 +102,11 @@ for i = 1:length(contrast)
         end
     end
 end
-nrep = 1;
+nrep = 2;
 parm = repmat(parm,nrep,1);
 nTrials = size(parm,1);
+
+
 parm = parm(randperm(nTrials),:);
 Trial.contrast = parm(:,1);
 Trial.gaborsize = parm(:,2);
@@ -129,11 +136,39 @@ end
 pause(1);
 Screen('Flip', window);
 
+tag_setup_projector('set', 1);
+WaitSecs(5);
+
 for trial = 1:nTrials
 
     disp(['>>> Trial: ',num2str(trial),' of ', num2str(nTrials)])
     Trial_run_ssvep;
     pause(.5);
+    
+    if mod(trial, 5)==0
+    tag_setup_projector('reset', 1);
+    nLeft = nTrials - trial;
+    DrawFormattedText(window, 'take a short break please:) press any key to continue','center',center_y-100,white);
+    DrawFormattedText(window, [num2str(nLeft), ' samples left'],'center',center_y,white);
+    Screen('Flip', window);
+    TTL = 0; % Get the TTL from the scanner
+    while TTL==0
+        [keyIsDown, secs, keyCode] = KbCheck(-3, 2);  % Check keyboard press
+        if strcmp(KbName(keyCode),keyLR{1}) || strcmp(KbName(keyCode),keyLR{2})...
+            || strcmp(KbName(keyCode),'space') || strcmp(KbName(keyCode),keyLR{3})...
+            || strcmp(KbName(keyCode),keyLR{4})
+            TTL = 1;    % Start the experiment
+            debrun = GetSecs; %%% Scanning starts!!!!
+            disp('OK, let''s start!!')
+        else
+            TTL = 0;
+        end
+    end
+    pause(1);
+    Screen('Flip', window);
+    tag_setup_projector('set', 1);
+    WaitSecs(5);
+    end
 
 end % end of the trials
 disp('>>> mini block ended')
@@ -141,8 +176,12 @@ disp('>>> mini block ended')
 % Close and clear all
 Screen('CloseAll');
 ShowCursor;
+tag_setup_projector('reset', 1);
+tag_setup_projector('close', 1);
 fclose('all');
 Priority(0);
 sca;
+
+
 
 
