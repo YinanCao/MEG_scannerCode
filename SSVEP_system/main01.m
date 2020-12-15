@@ -1,6 +1,6 @@
 clear; clc; close all;
 debug = 0;
-smallWindow4Debug = [0, 0, 1920, 1080]/1.2;
+smallWindow4Debug = [0, 0, 1920, 1080];
 Screen('Preference', 'SkipSyncTests', 0);
 sca;
 datadir = '/home/usera/Documents/';
@@ -8,7 +8,7 @@ log_dir = [datadir 'Log'];
 if ~exist(log_dir, 'dir')
    mkdir(log_dir);
 end
-SubName = 'TC';
+SubName = 'MSiems_ssvep';
 %--------------------------------------
 % Open the window and Setup PTB  values
 %--------------------------------------
@@ -145,7 +145,7 @@ for trial = 1:nTrials
     Trial_run_ssvep;
     pause(.5);
     
-    if mod(trial, 5)==0
+    if mod(trial, 45)==0
     tag_setup_projector('reset', 1);
     nLeft = nTrials - trial;
     DrawFormattedText(window, 'take a short break please:) press any key to continue','center',center_y-100,white);
